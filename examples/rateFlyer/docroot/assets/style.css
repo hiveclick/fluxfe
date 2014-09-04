@@ -1,0 +1,307 @@
+html {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    color: #666;
+    background: #fff;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 50px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.middle {
+    text-align: center;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #efefef;
+    border-top: solid 3px #FF6600;
+    border-bottom: solid 1px #fff;
+    -webkit-box-shadow: 0 1px 2px 0 #ccc;
+    box-shadow: 0 1px 2px 0 #ccc;
+    margin-bottom: 20px;
+    text-align:left;
+}
+
+.home-theme .header {
+    border-top: solid 3px #5cb85c;
+}
+
+.auto-theme .header {
+    border-top: solid 3px #5bc0de;
+}
+
+.health-theme .header {
+    border-top: solid 3px #f0ad4e;
+}
+
+.life-theme .header {
+    border-top: solid 3px #d9534f;
+}
+
+.padding-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.hc1 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 30px;
+    color: #666;
+    text-align: center;
+}
+
+.hc2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 30px;
+    color: #FF6600;    
+    text-align: center;
+}
+
+.home-theme .hc2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 30px;
+    line-height: 40px;
+    color: #5cb85c;
+    padding-bottom: 20px;
+}
+
+.auto-theme .hc2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 30px;
+    line-height: 40px;
+    color: #5bc0de;
+    padding-bottom: 20px;
+}
+
+.health-theme .hc2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 30px;
+    line-height: 40px;
+    color: #f0ad4e;
+    padding-bottom: 20px;
+}
+
+.life-theme .hc2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 30px;
+    line-height: 40px;
+    color: #d9534f;
+    padding-bottom: 20px;
+}
+
+.hc3 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #666;
+    text-align: center;
+}
+
+.home-theme .hc3 {
+    font-size: 25px;
+    line-height: 30px;
+}
+.auto-theme .hc3 {
+    font-size: 25px;
+    line-height: 30px;
+}
+.health-theme .hc3 {
+    font-size: 25px;
+    line-height: 30px;
+}
+.life-theme .hc3 {
+    font-size: 25px;
+    line-height: 30px;
+}
+
+.hc4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+    color: #666;
+}
+
+.logo-left {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 16px;
+    color: #666;
+}
+
+.live-agent {
+    padding-top: 10px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    color: #666;
+    text-align: right;
+}
+
+.live-agent-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 14px;
+    color: #666;
+    text-align: right;
+}
+
+.tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 14px;
+    color: #666;
+}
+
+.tm {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 6px;
+    vertical-align:text-top;
+    color: #666;
+}
+
+.main_buttons {
+    margin: 20px auto 20px auto;
+    display: block;
+}
+
+.icon {
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+    margin: 5px;
+    font-size: 50px;
+    text-align: center;
+    display:inline-block;
+    background-color: #efefef;
+    -webkit-box-shadow: 0 1px 2px 0 #ccc;
+    box-shadow: 0 1px 2px 0 #ccc;
+    border-radius: 4px;
+    border: solid 1px #fff;
+}
+
+.icon:hover {
+    opacity: .6;
+}
+
+.icon.home {
+    color: #5cb85c;
+}
+
+.icon.auto {
+    color: #5bc0de;
+}
+
+.icon.health {
+    color: #f0ad4e;
+}
+
+.icon.life {
+    color: #d9534f;
+}
+
+.btn-custom {
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 15px 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    color: #fff;
+    opacity: 1;
+    text-align: center;
+    -webkit-box-shadow: 0 1px 2px 0 #ccc;
+    box-shadow: 0 1px 2px 0 #ccc;
+    margin-top: 10px;
+}
+
+.home-theme .btn-custom {
+    margin-top: 0px;
+    background: #5cb85c;
+}
+
+.auto-theme .btn-custom {
+    margin-top: 0px;
+    background: #5bc0de;
+}
+
+.health-theme .btn-custom {
+    margin-top: 0px;
+    background: #f0ad4e;
+}
+
+.life-theme .btn-custom {
+    margin-top: 0px;
+    background: #d9534f;
+}
+
+.btn-custom:hover {
+    opacity: 0.9;
+}
+
+.input-custom {
+    border: none;
+    outline: none;
+    background: #efefef;
+    border: solid 1px #ccc;
+}
+
+.label-lg {
+    display: block;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    padding-bottom: 5px;
+}
+
+.footer p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    font-size: 8px;
+    line-height: 15px;
+    padding-bottom: 15px;
+    color: #999;
+}
+
+.footer p:last-child {
+    padding-bottom: 0;
+}
+
+.footer a {
+    color: #999;
+}
+
+.footer a:hover {
+    color: #666;
+}

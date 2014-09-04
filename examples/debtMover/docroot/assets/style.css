@@ -1,0 +1,161 @@
+html {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    color: #666;
+    background: #fff;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 50px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #efefef;
+    border-top: solid 3px #FF6600;
+    border-bottom: solid 1px #fff;
+    -webkit-box-shadow: 0 1px 2px 0 #ccc;
+    box-shadow: 0 1px 2px 0 #ccc;
+    margin-bottom: 20px;
+    text-align:left;
+}
+
+.padding-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+a {
+    color: #999;
+}
+
+a:hover {
+    color: #666;
+}
+
+.middle {
+    text-align: center;
+}
+
+.btn-color-override {
+    background-color:#ff9900;
+    border-color:#ff9900;
+    color:#fff;
+    white-space:normal;
+}
+
+.btn-color-override:focus,
+.btn-color-override:hover,
+.btn-color-override:active {
+    background-color:#ff7700;
+    border-color:#ff7700;
+    color:#fff;
+    white-space:normal;
+}
+
+.btn-color-override-success {
+    background-color:#33cc33;
+    border-color:#33cc33;
+    color:#fff;
+    white-space:normal;
+}
+
+.btn-color-override-success:hover,
+.btn-color-override-success:focus,
+.btn-color-override-success:active {
+    background-color:#33aa33;
+    border-color:#33aa33;
+    color:#fff;
+    white-space:normal;
+}
+
+.btn-color-override-cancel {
+    background-color:#999999;
+    border-color:#999999;
+    margin:0 auto;
+    width:90%;
+    color:#fff;
+    white-space:normal;
+}
+
+.btn-color-override-cancel:hover,
+.btn-color-override-cancel:focus,
+.btn-color-override-cancel:active {
+    background-color:#997799;
+    border-color:#997799;
+    margin:0 auto;
+    width:90%;
+    color:#fff;
+    white-space:normal;
+}
+
+.logo-left {
+    font-family: 'Gotham-Medium', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 16px;
+    color: #666;
+}
+
+.logo-right {
+    font-weight: 700;
+    font-size: 16px;
+    color: #666;
+    text-align: right;
+}
+
+.footer p {
+    font-family: 'Gotham-Regular', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    font-size: 8px;
+    line-height: 15px;
+    padding-bottom: 15px;
+    color: #999;
+}
+
+.footer p:last-child {
+    padding-bottom: 0;
+}
+
+@font-face {
+    font-family: 'Gotham-Bold';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Gotham-Bold'), url(Gotham-Bold_0.ttf);
+}
+
+@font-face {
+    font-family: 'Gotham-Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Gotham-Regular'), url(Gotham-Book.ttf);
+}
+
+@font-face {
+    font-family: 'Gotham-Medium';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Gotham-Medium'), url(Gotham-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Museo-Slab';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Museo-Slab'), url(Museo_Slab.otf);
+}

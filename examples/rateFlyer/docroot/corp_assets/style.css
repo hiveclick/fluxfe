@@ -1,0 +1,334 @@
+body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    color: #666;
+    background: #fff;
+}
+
+.hc1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 45px;
+    color: #fff;
+    text-align: left;
+	text-transform:uppercase;
+}
+
+.hc1-attract {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 45px;
+    color: #666;
+    text-align: left;
+	text-transform:uppercase;
+}
+
+.hc1-insurers {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 45px;
+    color: #666;
+    text-align: center;
+	text-transform:uppercase;
+	margin-bottom: 25px;
+}
+
+.hc2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 30px;
+    color: #FF6600;
+    text-align: left;
+}
+
+.hc2-home {
+	font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 30px;
+    color: #2d5a2d;
+    text-align: left;
+}
+
+.hc2-auto {
+	font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 30px;
+    color: #2a4f5a;
+    text-align: left;
+}
+
+.hc2-health {
+	font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 30px;
+    color: #79522a;
+    text-align: left;
+}
+
+.hc2-life {
+	font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 30px;
+    color: #663333;
+    text-align: left;
+}
+
+.hc3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: left;
+    color: #fff;
+}
+
+.hc3-attract {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+    text-align: left;
+    color: #666;
+}
+
+.hc4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #666;
+	text-transform:uppercase;
+}
+
+.modal-body hc4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+	line-height: 25px;
+    color: #666;
+}
+
+.check {
+    color: #FF6600;
+}
+
+a {
+    color: #999;
+}
+
+a:hover {
+    color: #666;
+}
+
+.padding-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.padding-100 {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.logo-left {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 35px;
+    color: #666;
+}
+
+.tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #666;
+}
+
+.tm {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 7px;
+    vertical-align:text-top;
+    color: #666;
+}
+
+.icon {
+	background-color: #fff;
+	font-size: 70px;
+	padding: 30px;
+	margin-bottom: 25px;
+}
+
+.icon-home {
+	color: #5cb85c;
+}
+
+.icon-auto {
+	color: #5bc0de;
+}
+
+.icon-health {
+	color: #f0ad4e;
+}
+
+.icon-life {
+	color: #d9534f;
+}
+
+.header {
+    width: 100%;
+	background: #efefef;
+    border-top: solid 4px #FF6600;
+    border-bottom: solid 1px #fff;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	-webkit-box-shadow: 0 0 7px 0 rgba(0,0,0,.35);
+	box-shadow: 0 0 7px 0 rgba(0,0,0,.35);
+	position: relative;
+	z-index: 999;
+}
+
+.attract {
+	background-color: #fff;
+	background-image: url(family.jpg);
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+.home {
+	background-color: #5cb85c;
+}
+.auto {
+	background-color: #5bc0de;
+}
+
+.health {
+	background-color: #f0ad4e;
+}
+
+.life {
+	background-color: #d9534f;
+}
+
+.insurers {
+	background-color: #fff;
+}
+
+.footer {
+	background-color: #d8d8d8;
+}
+
+.footer p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    font-size: 13px;
+    line-height: 20px;
+    color: #999;
+}
+
+.footer p:last-child {
+    padding-bottom: 0;
+}
+
+.modal-body p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: left;
+    font-size: 11px;
+    line-height: 15px;
+    color: #999;
+}
+
+.modal-body ul {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: left;
+    font-size: 11px;
+    line-height: 15px;
+    color: #999;
+}
+
+.modal-body li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: left;
+    font-size: 11px;
+    line-height: 15px;
+    color: #999;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 25px;
+    color: #666;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 25px;
+    padding: 1em;
+	border-radius: 3px;
+    display: none;
+}
+
+.back-to-top:hover {    
+    background-color: rgba(135, 135, 135, 0.50);
+}
+
+@media (max-width: 767px) {
+		
+.attract {
+	background-image: url(family.jpg);
+	background-image: none !important;
+}
+
+.padding-100 {
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.icon-bar{
+  background-color: #999;
+}
+
+.header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.navbar-toggle {
+	margin-right: 0px;
+	float: right;
+	margin-top: 8px;
+	margin-bottom: 0px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+}
+
+@media only screen and (min-width: 35em) {
+
+}

@@ -1,0 +1,4 @@
+<?php
+
+define('DEFAULT_RATEFLYER_CAMPAIGN_ID', '6e8d88e7f0f64bcccb6b2ceb22faa919fee7049b');
+define('DEFAULT_CALL_CAMPAIGN_ID', 'bafd7fd3eec50ff759757aa57e8fb2ad596910ab');

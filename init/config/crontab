@@ -1,0 +1,6 @@
+#
+# Disable the emailing of the cron output to the root user
+#
+MAILTO=""
+
+# End crontab

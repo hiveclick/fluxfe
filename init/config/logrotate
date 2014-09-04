@@ -1,0 +1,6 @@
+/var/log/flux/*.log {
+    missingok
+    notifempty
+    sharedscripts
+    endscript
+}

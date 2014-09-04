@@ -1,0 +1,36 @@
+/nbproject/*
+.dropbox
+.htaccess
+
+# mojavi config files
+frontend/webapp/config/databases.ini
+frontend/webapp/config/settings.ini
+frontend/webapp/config/logging.ini
+frontend/webapp/config/factories.ini
+frontend/webapp/config.php
+frontend/webapp/cache/*
+frontend/webapp/meta/version
+
+# install.ini local file
+frontend/init/install.ini
+
+# symlink library files
+frontend/webapp/lib/Gun
+frontend/webapp/lib/Mojavi
+frontend/webapp/lib/Zend
+
+#Subversion files
+.svn
+
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+# Log files
+frontend/webapp/meta/logs/*
+
+# example cache files
+examples/*/lib/cache/*
+
+# config.ini file
+init/config.ini

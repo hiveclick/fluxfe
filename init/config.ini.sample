@@ -1,0 +1,44 @@
+;
+; This is the default configuration file for installing rad.  Whenever you make
+; a change to this file, you need to run the install.sh script
+;
+; /home/gun/init/install.sh
+;
+
+; Set the API server for accessing the platform (defaults to api.$HOSTNAME)
+api_server=http://api.localhost
+
+; Set the name to use for cookies when redirecting
+cookie_name=flux
+
+; Set your database user credentials here
+db_host="localhost"
+db_user=""
+db_pass=""
+
+; Define a name for your project
+session_key=flux
+
+; Sets the path to the lib directory (when building an rpm, the lib folder will be included)
+;lib_path=/home/flux/admin/webapp/lib/
+
+; You can set the default items to show per page on list pages (the default is 50)
+;items_per_page=50
+
+; Set the UI theme you want to load for the platform
+theme=default
+
+; Sets the upload folder for uploading data
+upload_folder=%MO_WEBAPP_DIR%/meta/uploads
+upload_host=api.flux.local
+upload_username=flux
+upload_password=m3g@gun
+
+; Set the location of the log folder where log files should go
+log_folder=/var/log/flux
+
+; Set the location of the version file
+version_file=%MO_WEBAPP_DIR%/meta/version
+
+; Set the password to use for salting
+; password_salt=password
