@@ -56,7 +56,7 @@
     RateFlyer.com
 </p>
 <p>
-    24310 Moulton Pkwy O-198 Laguna Hills, CA 92637
+    24310 Moulton Pkwy O-198 LaFluxa Hills, CA 92637
 </p>
 <p>
     support@rateflyer.com

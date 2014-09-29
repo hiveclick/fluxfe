@@ -1,13 +1,13 @@
 <?php
 require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');
-$lead = \GunFE\Lead::getInstance();
+$lead = \FluxFE\Lead::getInstance();
 if (isset($_REQUEST['__agent']) && $_REQUEST['__agent'] == '1') {
     $lead->save();
     $next_page = '/p6_new';
     header('Location: ' . $next_page);
     exit();
 }
-\GunFE\Lead::debug();
+\FluxFE\Lead::debug();
 
 ?>
 <?php
@@ -68,7 +68,7 @@ $(function() {
             </form>
 
             <!-- Tracking pixel -->
-            <img src="http://www.gunrt.local/p?_o=1&_c=1&conversion=1&_id=<?php echo $lead->getId() ?>" border="0" />
+            <img src="http://www.Fluxrt.local/p?_o=1&_c=1&conversion=1&_id=<?php echo $lead->getId() ?>" border="0" />
 
         </div>
         <script>
@@ -79,7 +79,7 @@ $(function() {
 		var op = document.createElement('script');
 		op.type = 'text/javascript';
 		op.async = 'true';
-		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.gun.local/scripts/op.js';
+		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.Flux.local/scripts/op.js';
 
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(op, s);

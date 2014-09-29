@@ -1,10 +1,10 @@
 <?php
 require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');
-$lead = \GunFE\Lead::getInstance();
+$lead = \FluxFE\Lead::getInstance();
 $next_page = '/p5_new';
 header('Refresh: 3;' . $next_page);
 
-\GunFE\Lead::debug();
+\FluxFE\Lead::debug();
 
 ?>
 <?php
@@ -65,7 +65,7 @@ $(function() {
 		var op = document.createElement('script');
 		op.type = 'text/javascript';
 		op.async = 'true';
-		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.gun.local/scripts/op.js';
+		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.Flux.local/scripts/op.js';
 
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(op, s);

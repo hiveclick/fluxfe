@@ -1,5 +1,5 @@
 <?php
-    use gunLocal\util\localLead as localLead;
+    use FluxLocal\util\localLead as localLead;
     
     require_once(__DIR__ . '/../lib/init.php');
     session_start();

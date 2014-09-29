@@ -15,7 +15,7 @@ frontend/webapp/meta/version
 frontend/init/install.ini
 
 # symlink library files
-frontend/webapp/lib/Gun
+frontend/webapp/lib/Flux
 frontend/webapp/lib/Mojavi
 frontend/webapp/lib/Zend
 

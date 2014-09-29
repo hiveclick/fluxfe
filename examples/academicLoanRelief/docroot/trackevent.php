@@ -1,6 +1,6 @@
 <?php
-    use GunLocal\Util\LocalLead as LocalLead;
-    use Gun\Util\Common as Common;
+    use FluxLocal\Util\LocalLead as LocalLead;
+    use Flux\Util\Common as Common;
 
     require_once(__DIR__ . '/../lib/init.php');
     

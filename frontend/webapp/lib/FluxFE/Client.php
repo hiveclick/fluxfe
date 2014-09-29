@@ -1,17 +1,41 @@
 <?php
-namespace GunFE;
+namespace FluxFE;
 
 use Mojavi\Form\MongoForm;
 use Mojavi\Util\Ajax;
 
-class Client extends \Gun\Client {
+class Client extends \Flux\Client {
 
+	/**
+	 * Returns the cache filename
+	 * @return string
+	 */
+	function getCacheFilename($cache_key) {
+		return 'client_' . $cache_key . '.json';
+	}
+	
+	/**
+	 * Returns the cache filename
+	 * @return string
+	 */
+	function getCacheFilenames() {
+		$ret_val = array();
+		$ret_val[] = $this->getCacheFilename($this->getId());
+		return $ret_val;
+	}
+	
 	/**
 	 * Queries for an offer
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
 	function query(array $criteria = array(), $merge_id = true) {
-		$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/client_' . $this->getId() . '.json', '/client/client', array('_id' => $this->getId()));
+		if (defined('FLOW_CACHE_DIR')) {
+			$response = Ajax::sendAjaxAndCache(FLOW_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()) . '.json', '/client/client', array('_id' => $this->getId()));
+		} else if (defined('MO_CACHE_DIR')) {
+			$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()) . '.json', '/client/client', array('_id' => $this->getId()));
+		} else {
+			$response = Ajax::sendAjax('/client/client', array('_id' => $this->getId()));
+		}
 		if (isset($response['record'])) {
 			$this->populate($response['record']);
 		}

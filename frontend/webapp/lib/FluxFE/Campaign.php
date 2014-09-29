@@ -1,10 +1,10 @@
 <?php
-namespace GunFE;
+namespace FluxFE;
 
 use Mojavi\Form\MongoForm;
 use Mojavi\Util\Ajax;
 
-class Campaign extends \Gun\Campaign {
+class Campaign extends \Flux\Campaign {
 
 	private $offer;
 	private $client;
@@ -14,12 +14,30 @@ class Campaign extends \Gun\Campaign {
 	// +------------------------------------------------------------------------+
 
 	/**
+	 * Returns the cache filename
+	 * @return string
+	 */
+	function getCacheFilename($cache_key) {
+		return 'campaign_' . $cache_key . '.json';
+	}
+	
+	/**
+	 * Returns the cache filename
+	 * @return string
+	 */
+	function getCacheFilenames() {
+		$ret_val = array();
+		$ret_val[] = $this->getCacheFilename($this->getId());
+		return $ret_val;
+	}
+	
+	/**
 	 * Returns the client
-	 * @return \GunFE\Client
+	 * @return \FluxFE\Client
 	 */
 	function getClient() {
 		if (is_null($this->client)) {
-			$this->client = new \GunFE\Client();
+			$this->client = new \FluxFE\Client();
 			$this->client->setId($this->getClientId());
 			$this->client->query();
 		}
@@ -28,11 +46,11 @@ class Campaign extends \Gun\Campaign {
 
 	/**
 	 * Returns the offer
-	 * @return \GunFE\Offer
+	 * @return \FluxFE\Offer
 	 */
 	function getOffer() {
 		if (is_null($this->offer)) {
-			$this->offer = new \GunFE\Offer();
+			$this->offer = new \FluxFE\Offer();
 			$this->offer->setId($this->getOfferId());
 			$this->offer->query();
 		}
@@ -44,7 +62,13 @@ class Campaign extends \Gun\Campaign {
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
 	function query(array $criteria = array(), $merge_id = true) {
-		$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/campaign_' . $this->getId() . '.json', '/campaign/campaign', array('_id' => (string)$this->getId()));
+		if (defined('FLOW_CACHE_DIR')) {
+			$response = Ajax::sendAjaxAndCache(FLOW_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()) . '.json', '/campaign/campaign', array('_id' => (string)$this->getId()));
+		} else if (defined('MO_CACHE_DIR')) {
+			$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()) . '.json', '/campaign/campaign', array('_id' => (string)$this->getId()));
+		} else {
+			$response = Ajax::sendAjax('/campaign/campaign', array('_id' => (string)$this->getId()));
+		}
 		if (isset($response['record'])) {
 			$this->populate($response['record']);
 		}

@@ -27,7 +27,7 @@ try {
 			$error_html .= '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 			$error_html .= '<meta name="viewport" content="user-scalable=yes, width=device-width" />';
 			$error_html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />';
-			$error_html .= '<title>Gun</title>';
+			$error_html .= '<title>Flux</title>';
 			$error_html .= '<link rel="icon" type="image/png" href="favicon.png" />';
 			$error_html .= '<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
 			$error_html .= '<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>';
@@ -73,7 +73,7 @@ try {
 			foreach ($ini as $key => $value) {
 				$buffer[] = sprintf($tmp, strtoupper($key), $value);
 			}
-			$offer_key = 'gunlocal';
+			$offer_key = 'Fluxlocal';
 			if (!isset($ini['OFFER_KEY'])) {
 				// if we don't have an offer key set, then use the folder name
 				if (strpos($_SERVER['DOCUMENT_ROOT'], '/docroot') !== false) {

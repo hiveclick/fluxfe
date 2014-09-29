@@ -1,11 +1,11 @@
 <?php
-namespace GunFE;
+namespace FluxFE;
 
 use Mojavi\Logging\LoggerManager;
 
-class Lead extends \Gun\Lead {
+class Lead extends \Flux\Lead {
 
-	const COOKIE_NAME = 'gunLocal';
+	const COOKIE_NAME = 'FluxLocal';
 
 	private static $_lead;
 
@@ -30,11 +30,11 @@ class Lead extends \Gun\Lead {
 
 	/**
 	 * Returns a new instance of this lead
-	 * @return \Gun\LocalLead
+	 * @return \Flux\LocalLead
 	 */
 	public static function getInstance() {
 		if (is_null(self::$_lead)) {
-			self::$_lead = new \GunFE\Lead();
+			self::$_lead = new \FluxFE\Lead();
 
 			// Load the lead in from the cookie (if it exists)
 			$found_lead = false;
@@ -72,7 +72,7 @@ class Lead extends \Gun\Lead {
 
 	/**
 	 * Populates this lead by setting values into the internal _d variable
-	 * @return \Gun\Lead
+	 * @return \Flux\Lead
 	 */
 	function populate($arg0, $modify_columns = true) {
 		parent::populate($arg0, $modify_columns);
@@ -81,14 +81,14 @@ class Lead extends \Gun\Lead {
 				
 				// Handle our main data array
 				/*
-				if (strpos($name, \Gun\DataField::DATA_FIELD_DEFAULT_CONTAINER) === 0 && is_array($value)) {
+				if (strpos($name, \Flux\DataField::DATA_FIELD_DEFAULT_CONTAINER) === 0 && is_array($value)) {
 					foreach ($value as $key => $val) {
 						if (strpos($key, 'd') === 0 && isset($val['v'])) {
 							$this->setValue($key, $val['v'], $val['m']);
 						}
 					}
 					$this->_d = $value;
-					if ($modify_columns) { $this->addModifiedColumn(\Gun\DataField::DATA_FIELD_DEFAULT_CONTAINER); }
+					if ($modify_columns) { $this->addModifiedColumn(\Flux\DataField::DATA_FIELD_DEFAULT_CONTAINER); }
 					continue;
 				}
 				
@@ -100,38 +100,38 @@ class Lead extends \Gun\Lead {
 				}
 
 				// This is our event array, so populate it to the data
-				if (strpos($name, \Gun\DataField::DATA_FIELD_EVENT_CONTAINER) === 0 && is_array($value)) {
+				if (strpos($name, \Flux\DataField::DATA_FIELD_EVENT_CONTAINER) === 0 && is_array($value)) {
 					if (!is_array($this->_e)) { $this->_e = array(); }
 					foreach ($value as $ev) {
-						$lead_event = new \Gun\LeadEvent();
+						$lead_event = new \Flux\LeadEvent();
 						$lead_event->populate($ev);
 						$this->_e[] = $lead_event;
 					}	
-					if ($modify_columns) { $this->addModifiedColumn(\Gun\DataField::DATA_FIELD_EVENT_CONTAINER); }
+					if ($modify_columns) { $this->addModifiedColumn(\Flux\DataField::DATA_FIELD_EVENT_CONTAINER); }
 					continue;
 				}
 				*/
 				/*
-				if (strpos($name, \Gun\DataField::DATA_FIELD_REF_CAMPAIGN_KEY) === 0 && $name == \Gun\DataField::DATA_FIELD_REF_CAMPAIGN_KEY) {
+				if (strpos($name, \Flux\DataField::DATA_FIELD_REF_CAMPAIGN_KEY) === 0 && $name == \Flux\DataField::DATA_FIELD_REF_CAMPAIGN_KEY) {
 					$this->setCampaignKey($value); // Save the campaign key
 					continue;
 				}
-				if (strpos($name, \Gun\DataField::DATA_FIELD_REF_CAMPAIGN_ID) === 0 && $name == \Gun\DataField::DATA_FIELD_REF_CAMPAIGN_ID) {
+				if (strpos($name, \Flux\DataField::DATA_FIELD_REF_CAMPAIGN_ID) === 0 && $name == \Flux\DataField::DATA_FIELD_REF_CAMPAIGN_ID) {
 					$this->setCampaignId($value); // Save the campaign id
 					continue;
 				}
 				
-				if (strpos($name, \Gun\DataField::DATA_FIELD_REF_OFFER_ID) === 0 && $name == \Gun\DataField::DATA_FIELD_REF_OFFER_ID) {
+				if (strpos($name, \Flux\DataField::DATA_FIELD_REF_OFFER_ID) === 0 && $name == \Flux\DataField::DATA_FIELD_REF_OFFER_ID) {
 					$this->setOfferId($value); // Save the offer id
 					continue;
 				}
-				if (strpos($name, \Gun\DataField::DATA_FIELD_REF_CLIENT_ID) === 0 && $name == \Gun\DataField::DATA_FIELD_REF_CLIENT_ID) {
+				if (strpos($name, \Flux\DataField::DATA_FIELD_REF_CLIENT_ID) === 0 && $name == \Flux\DataField::DATA_FIELD_REF_CLIENT_ID) {
 					$this->setClientId($value); // Save the client id
 					continue;
 				}
-				if (strpos($name, \Gun\DataField::DATA_FIELD_ID_NAME) === 0) {
+				if (strpos($name, \Flux\DataField::DATA_FIELD_ID_NAME) === 0) {
 					$this->setId($value); // Save the lead id
-					if ($modify_columns) { $this->addModifiedColumn(\Gun\DataField::DATA_FIELD_ID_NAME); }
+					if ($modify_columns) { $this->addModifiedColumn(\Flux\DataField::DATA_FIELD_ID_NAME); }
 					continue;
 				}
 				*/
@@ -188,21 +188,22 @@ class Lead extends \Gun\Lead {
 		$update_array = array();
 		if ($this->getId() == '') {
 /*
-			$this->setValue(\Gun\DataField::DATA_FIELD_REF_CLIENT_ID, array('_id' => $this->getClientId(), 'name' => $this->getClient()->getName()), self::LEAD_REQUEST_CODE_INSERT);
-			$this->setValue(\Gun\DataField::DATA_FIELD_REF_OFFER_ID, array('_id' => $this->getOfferId(), 'name' => $this->getOffer()->getName()), self::LEAD_REQUEST_CODE_INSERT);
+			$this->setValue(\Flux\DataField::DATA_FIELD_REF_CLIENT_ID, array('_id' => $this->getClientId(), 'name' => $this->getClient()->getName()), self::LEAD_REQUEST_CODE_INSERT);
+			$this->setValue(\Flux\DataField::DATA_FIELD_REF_OFFER_ID, array('_id' => $this->getOfferId(), 'name' => $this->getOffer()->getName()), self::LEAD_REQUEST_CODE_INSERT);
 */
 			// Setup a created event that will be saved on this lead
-			$created_event = \GunFE\DataField::retrieveDataFieldFromKeyName(\GunFE\DataField::DATA_FIELD_EVENT_CREATED_NAME);
+			$created_event = \FluxFE\DataField::retrieveDataFieldFromKeyName(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME);
 			if (!is_null($created_event)) {
-				$this->setValue(\GunFE\DataField::DATA_FIELD_EVENT_CREATED_NAME, $this->__uniformTimestamp, self::LEAD_REQUEST_CODE_INSERT);
+				$this->setValue(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME, $this->__uniformTimestamp, self::LEAD_REQUEST_CODE_INSERT);
 			} else {
-				LoggerManager::error(__METHOD__ .  " :: " . 'Cannot find created event from name: ' . \GunFE\DataField::DATA_FIELD_EVENT_CREATED_NAME);
+				LoggerManager::error(__METHOD__ .  " :: " . 'Cannot find created event from name: ' . \FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME);
 			}
 			
 			// First save the lead if we haven't yet
 			$insert_id = $this->insert();
 			$this->setId($insert_id);
 		} else if (!empty($this->createUpdateArray())) {
+			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Updating lead: " . var_export($this->createUpdateArray(), true));
 			$this->update();
 		}
 
@@ -214,7 +215,7 @@ class Lead extends \Gun\Lead {
 		 * Save everything from __di
 		 */
 		foreach($this->getDirtyData() as $key => $dirty_data_element) {
-			$dataFieldDbId = \GunFE\DataField::DATA_FIELD_DEFAULT_CONTAINER . '.' . $dirty_data_element['n'];
+			$dataFieldDbId = \FluxFE\DataField::DATA_FIELD_DEFAULT_CONTAINER . '.' . $dirty_data_element['n'];
 			$operator = self::convertRequestCodeToOperator($dirty_data_element['m']);
 			if (is_array($dirty_data_element['v'])) {
 				//we have a validated object type (unvalidated object types would not have made it this far)
@@ -239,12 +240,12 @@ class Lead extends \Gun\Lead {
 		$update_array = array();
 		$criteria_array_event = array('_id' => new \MongoId($this->getId()));
 		foreach ($this->getE() as $event) {
-			$criteria_array_event[\GunFE\DataField::DATA_FIELD_EVENT_CONTAINER] = array('$not' => array('$elemMatch' => array(
+			$criteria_array_event[\FluxFE\DataField::DATA_FIELD_EVENT_CONTAINER] = array('$not' => array('$elemMatch' => array(
 				'n' => $event->getEventId(), // event id
 				'o' => $event->getOfferId(), // offer id
 				'c' => $event->getClientId() // client id
 			)));
-			$update_array = array('$push' => array(\GunFE\DataField::DATA_FIELD_EVENT_CONTAINER => $event->toArray()));
+			$update_array = array('$push' => array(\FluxFE\DataField::DATA_FIELD_EVENT_CONTAINER => $event->toArray()));
 				
 			if (!empty($update_array)) {
 				// Save this lead to the database
@@ -268,9 +269,9 @@ class Lead extends \Gun\Lead {
 	 * @return string
 	 */
 	function getValue($data_name, $default_value = '', $assign_if_not_set = true) {
-		$data_field = \GunFE\DataField::retrieveDataFieldFromName($data_name);
+		$data_field = \FluxFE\DataField::retrieveDataFieldFromName($data_name);
 		if (!is_null($data_field)) {
-			if ($data_field->getStorageType() == \GunFE\DataField::DATA_FIELD_STORAGE_TYPE_DEFAULT) {
+			if ($data_field->getStorageType() == \FluxFE\DataField::DATA_FIELD_STORAGE_TYPE_DEFAULT) {
 				// First check if the value exists in the dirty array
 				if (isset($this->__di[$data_field->getKeyName()])) {
 					return $this->__di[$data_field->getKeyName()]['v'];
@@ -295,20 +296,20 @@ class Lead extends \Gun\Lead {
 	 * Sets a data value in the lead
 	 * @param string $data_name
 	 * @param string $data_value
-	 * @return \Gun\LocalLead
+	 * @return \Flux\LocalLead
 	 */
 	function setValue($data_name, $data_value, $request_code = self::LEAD_REQUEST_CODE_UPDATE) {
-		/* @var $data_field \GunFE\DataField */
-		$data_field = \GunFE\DataField::retrieveDataFieldFromName($data_name);
+		/* @var $data_field \FluxFE\DataField */
+		$data_field = \FluxFE\DataField::retrieveDataFieldFromName($data_name);
 		if (!is_null($data_field)) {
 			// if we are incrementing, decrementing, min, or max'ing then make sure that the data field supports it
 			if (in_array($request_code, array(self::LEAD_REQUEST_CODE_INC, self::LEAD_REQUEST_CODE_DEC))) {
-				if (!in_array($data_field->getType(), \GunFE\DataField::typesCanIncDec())) {
+				if (!in_array($data_field->getType(), \FluxFE\DataField::typesCanIncDec())) {
 					$this->getErrors()->addError('warning', 'The dataField ' . $data_field->getName() . ' cannot be incremented or decremented');
 					return false;
 				}
 			} else if (in_array($request_code, array(self::LEAD_REQUEST_CODE_MAX, self::LEAD_REQUEST_CODE_MIN))) {
-				if (!in_array($data_field->getType(), \GunFE\DataField::typesCanMaxMin())) {
+				if (!in_array($data_field->getType(), \FluxFE\DataField::typesCanMaxMin())) {
 					$this->getErrors()->addError('warning', 'The dataField ' . $data_field->getName() . ' cannot be maximized or minimized');
 					return false;
 				}
@@ -322,9 +323,9 @@ class Lead extends \Gun\Lead {
 			}
 
 			if ($result === true) {
-				if ($data_field->getStorageType() === \GunFE\DataField::DATA_FIELD_STORAGE_TYPE_MAIN) {
+				if ($data_field->getStorageType() === \FluxFE\DataField::DATA_FIELD_STORAGE_TYPE_MAIN) {
 					// right now we do nothing with these
-				} else if($data_field->getStorageType() === \GunFE\DataField::DATA_FIELD_STORAGE_TYPE_DEFAULT) {
+				} else if($data_field->getStorageType() === \FluxFE\DataField::DATA_FIELD_STORAGE_TYPE_DEFAULT) {
 					// save the data
 					$data_field_subdoc = array(
 							'h' => $data_field->getName(),
@@ -334,12 +335,12 @@ class Lead extends \Gun\Lead {
 					);
 					$this->setDirtyDataValue($data_field->getKeyname(), $data_field_subdoc);
 					$this->setPrivateValue($data_field->getKeyname(), $data_value);
-				} else if ($data_field->getStorageType() === \GunFE\DataField::DATA_FIELD_STORAGE_TYPE_TRACKING) {
+				} else if ($data_field->getStorageType() === \FluxFE\DataField::DATA_FIELD_STORAGE_TYPE_TRACKING) {
 					// save the tracking data
 					$tracking = $this->getT();
 					$tracking->populate(array($data_field->getKeyName() => $data_value));
 					$this->setT($tracking);
-				} else if($data_field->getStorageType() === \GunFE\DataField::DATA_FIELD_STORAGE_TYPE_EVENT) {
+				} else if($data_field->getStorageType() === \FluxFE\DataField::DATA_FIELD_STORAGE_TYPE_EVENT) {
 					// Find the payout and revenue
 					$this->addEvent($data_field->getKeyName(), $data_value);
 				}
@@ -361,7 +362,7 @@ class Lead extends \Gun\Lead {
 	 */
 	function getT() {
 		if (is_null($this->_t)) {
-			$this->_t = new \GunFE\LeadTracking();
+			$this->_t = new \FluxFE\LeadTracking();
 		}
 		return $this->_t;
 	}
@@ -491,11 +492,11 @@ class Lead extends \Gun\Lead {
 	// +------------------------------------------------------------------------+
 	/**
 	 * Returns the client (from the cache or it pulls it via the api)
-	 * @return \GunFE\OFferPage
+	 * @return \FluxFE\OFferPage
 	 */
 	function getOfferPage($requery = false) {
 		if (is_null($this->_offer_page) || $requery || ($this->_offer_page->getId() == 0)) {
-			$this->_offer_page = new \GunFE\OfferPage();
+			$this->_offer_page = new \FluxFE\OfferPage();
 			$this->_offer_page->setOfferId($this->getOffer()->getId());
 			$this->_offer_page->setFilePath($_SERVER['SCRIPT_FILENAME']);
 			$this->_offer_page->setPageName(basename($_SERVER['SCRIPT_FILENAME']));
@@ -604,21 +605,21 @@ class Lead extends \Gun\Lead {
 		$lead_params = $this->toArray(false);
 		$formatted_redirect_url = preg_replace_callback('/\#(.*?)\#/', function($matches) use ($lead_params, $additional_params) {
 			//first, check to see if this is special case parameter
-			if ($matches[1] === \GunFE\DataField::DATA_FIELD_ID_NAME) {
+			if ($matches[1] === \FluxFE\DataField::DATA_FIELD_ID_NAME) {
 				return $this->getId();
-			} else if ($matches[1] === \GunFE\DataField::DATA_FIELD_REF_CAMPAIGN_ID) {
+			} else if ($matches[1] === \FluxFE\DataField::DATA_FIELD_REF_CAMPAIGN_ID) {
 				return $this->getCampaign()->getId();
-			} else if ($matches[1] === \GunFE\DataField::DATA_FIELD_REF_CLIENT_ID) {
+			} else if ($matches[1] === \FluxFE\DataField::DATA_FIELD_REF_CLIENT_ID) {
 				return $this->getCampaign()->getClientId();
-			} else if ($matches[1] === \GunFE\DataField::DATA_FIELD_REF_OFFER_ID) {
+			} else if ($matches[1] === \FluxFE\DataField::DATA_FIELD_REF_OFFER_ID) {
 				return $this->getCampaign()->getOfferId();
-			} else if ($matches[1] === \GunFE\DataField::DATA_FIELD_AGG_CKID) {
+			} else if ($matches[1] === \FluxFE\DataField::DATA_FIELD_AGG_CKID) {
 				return $this->getCampaign()->getCampaignKey() . '_' . $this->getId();
 			}
 	
 			// now check the data scope of lead
-			/* @var $match \Gun\DataField */
-			$match = \Gun\DataField::retrieveDataFieldFromName($matches[1]);
+			/* @var $match \Flux\DataField */
+			$match = \Flux\DataField::retrieveDataFieldFromName($matches[1]);
 			if (isset($match)) {
 				return rawurlencode($match);
 			}
@@ -634,13 +635,108 @@ class Lead extends \Gun\Lead {
 		return $formatted_redirect_url;
 	}
 	
+	/**
+	 * Finds the next page to go to based on the flow
+	 * @return string
+	 */
+	function findNextPage() {
+		// First find out what page we are on
+		$source_page = basename($_SERVER['SCRIPT_FILENAME']);
+
+		/* @var $offer_page \Flux\OfferPage */
+		$offer_page = new \FluxFE\OfferPage();
+		$offer_page->setOfferId($this->getOffer()->getId());
+		$offer_page->setFilePath($_SERVER['SCRIPT_FILENAME']);
+		$offer_page->setPageName(basename($_SERVER['SCRIPT_FILENAME']));
+		$offer_page->queryByPageName();
+		if ($offer_page->getId() == 0) {
+			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Could not find an offer page based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME']) . ", FilePath: " . $_SERVER['SCRIPT_FILENAME'] . '), attempting short page name...');
+			$offer_page = new \FluxFE\OfferPage();
+			$offer_page->setOfferId($this->getOffer()->getId());
+			$offer_page->setFilePath($_SERVER['SCRIPT_FILENAME']);
+			$offer_page->setPageName(basename($_SERVER['SCRIPT_FILENAME'], '.php'));
+			$offer_page->queryByPageName();
+		}
+		
+		if ($offer_page->getId() > 0) {
+			if (count($offer_page->getOfferPageFlows()) > 0) {
+				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page->getOfferPageFlows()) . " Flows found");
+				/* @var $offer_page_flow \Flux\OfferPageFlow */
+				foreach ($offer_page->getOfferPageFlows() as $offer_page_flow) {
+					
+					if (count($offer_page_flow->getFilterConditions()) == 0) { 
+						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): No filters, processing flow");
+						$filter_pass = true;
+					} else {
+						// Check if the conditions apply
+						if ($offer_page_flow->getFilterType() == \Flux\OfferPageFlow::FILTER_TYPE_ALL) {
+							\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page_flow->getFilterConditions()) . " filters, processing ALL conditions");
+							$filter_pass = true;
+							/* @var $filter_condition \Flux\OfferPageFlowFilter */
+							foreach ($offer_page_flow->getFilterConditions() as $filter_condition) {
+								$old_value = $this->getValue($filter_condition->getDataField()->getKeyName());
+								\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Checking if " . $old_value . " " . $filter_condition->getFilterOpText($filter_condition->getFilterOp()) . " " . implode(", ", $filter_condition->getFilterValue()));
+								$filter_pass &= $filter_condition->checkCondition($old_value);
+							}
+						} else {
+							\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page_flow->getFilterConditions()) . " filters, processing ANY conditions");
+							$filter_pass = false;
+							foreach ($offer_page_flow->getFilterConditions() as $filter_condition) {
+								$old_value = $this->getValue($filter_condition->getDataField()->getKeyName());
+								\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Checking if " . $old_value . " " . $filter_condition->getFilterOpText($filter_condition->getFilterOp()) . " " . implode(", ", $filter_condition->getFilterValue()));
+								$filter_pass |= $filter_condition->checkCondition($old_value);
+							}
+						}
+					}
+					
+					if ($filter_pass) {
+						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): FILTER PASSES");
+						// There are no conditions, so use this flow
+						/* @var $setter \Flux\OfferPageFlowSetter */
+						foreach ($offer_page_flow->getSetters() as $setter) {
+							if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_SET_IF_EMPTY) {
+								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
+								$this->setValue($setter->getDataField()->getKeyName(), $setter->getSetterValue());
+							} else if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_INCREMENT) {
+								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
+								$this->setValue($setter->getDataField()->getKeyName(), $old_value + (int)$setter->getSetterValue());
+							} else if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_DECREMENT) {
+								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
+								$this->setValue($setter->getDataField()->getKeyName(), $old_value - (int)$setter->getSetterValue());
+							} else {
+								$this->setValue($setter->getDataField()->getKeyName(), $setter->getSetterValue());
+							}
+						}
+						
+						// Decide if we are going to a remote url or to another page within the flow
+						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Navigation Type is " . $offer_page_flow->getNavigation()->getNavigationType());
+						if ($offer_page_flow->getNavigation()->getNavigationType() == \Flux\OfferPageFlowNavigation::NAVIGATION_TYPE_REMOTE) {
+							$destination_page = $offer_page_flow->getNavigation()->getRemoteUrl();
+						} else {
+							$destination_page = $offer_page_flow->getNavigation()->getDestinationOfferPage()->getPageName();
+						}
+						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Returning destination page for source page (" . $offer_page->getPageName() . "): " . $destination_page);
+						return $destination_page;
+					}
+				}
+			} else {
+				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): No Flows found, using next page: " . $offer_page->getNextPage()->getPageName());
+				return $offer_page->getNextPage()->getPageName();
+			}
+		} else {
+			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Could not find an offer page (" . $source_page . ") based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME'], '.php') . ", FilePath: " . $_SERVER['SCRIPT_FILENAME']);
+		}
+		
+		return $source_page;
+	}
+	
 	// +---------------------------------------------------------------+
 	// | Debugging functions used for testing						  |
 	// +---------------------------------------------------------------+
 	/*
 	 * These functions are used for debugging the lead when in development
 	 * They are used like so:
-	 * \GunFE\Lead::debug();
+	 * \FluxFE\Lead::debug();
 	 */
 	/**
 	 * Returns the internal data for this lead for debugging

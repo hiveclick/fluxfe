@@ -1,8 +1,8 @@
 <?php
 require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');
-$localLead = \GunFE\Lead::getInstance();
+$localLead = \FluxFE\Lead::getInstance();
 $localLead->save(true);
-\GunFE\Lead::debug();
+\FluxFE\Lead::debug();
 ?>
 <?php
     
@@ -47,7 +47,7 @@ $localLead->save(true);
 		var op = document.createElement('script');
 		op.type = 'text/javascript';
 		op.async = 'true';
-		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.gun.local/scripts/op.js';
+		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.Flux.local/scripts/op.js';
 
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(op, s);

@@ -10,8 +10,8 @@ if ($fh) {
 	while (($line = fgets($fh, 4096)) !== false) {
 		$line_parts = explode("\t", $line);
 
-		\GunFE\Lead::clear();
-		$lead = \GunFE\Lead::getInstance();
+		\FluxFE\Lead::clear();
+		$lead = \FluxFE\Lead::getInstance();
 		$lead->setClientId(1);
 		$lead->setOfferId(rand(1,3));
 		$lead->setValue('ip', rand(100,254) . '.' . rand(1,254) . '.' . rand(1,254) . '.' . rand(1,254));

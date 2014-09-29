@@ -1,14 +1,14 @@
 <?php
 require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');
 \Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "================p3_new.php================");
-$lead = \GunFE\Lead::getInstance();
+$lead = \FluxFE\Lead::getInstance();
 if (isset($_REQUEST['__submit']) && $_REQUEST['__submit'] == '1') {
     $lead->save();
     $next_page = '/p4_new';
     header('Location: ' . $next_page);
     exit();
 }
-\GunFE\Lead::debug();
+\FluxFE\Lead::debug();
 
 ?>
 <?php
@@ -86,7 +86,7 @@ $(function() {
         </form>
 
         <!-- Tracking pixel -->
-        <img src="http://www.gunrt.local/p?_o=1&_c=1&partial=1&_id=<?php echo $lead->getId() ?>" border="0" />
+        <img src="http://www.Fluxrt.local/p?_o=1&_c=1&partial=1&_id=<?php echo $lead->getId() ?>" border="0" />
     </div>
     <div class="footer">
         <?php require_once('footer_bar.php'); ?>
@@ -99,7 +99,7 @@ $(function() {
 		var op = document.createElement('script');
 		op.type = 'text/javascript';
 		op.async = 'true';
-		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.gun.local/scripts/op.js';
+		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.Flux.local/scripts/op.js';
 
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(op, s);

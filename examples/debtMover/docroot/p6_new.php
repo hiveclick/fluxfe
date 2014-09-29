@@ -1,13 +1,13 @@
 <?php
 require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');
-$localLead = \GunFE\Lead::getInstance();
+$localLead = \FluxFE\Lead::getInstance();
 if (isset($_REQUEST['__submit']) && $_REQUEST['__submit'] == '1') {
     $localLead->save(true);
     $next_page = '/p7_new';
     header('Location: ' . $next_page);
     exit();
 }
-\GunFE\Lead::debug();
+\FluxFE\Lead::debug();
 ?>
 <?php
     
@@ -101,7 +101,7 @@ $(function() {
 		var op = document.createElement('script');
 		op.type = 'text/javascript';
 		op.async = 'true';
-		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.gun.local/scripts/op.js';
+		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.Flux.local/scripts/op.js';
 
 		var s = document.getElementsByTagName('script')[0];
 		s.parentNode.insertBefore(op, s);

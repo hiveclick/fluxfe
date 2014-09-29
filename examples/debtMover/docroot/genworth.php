@@ -1,7 +1,7 @@
 <?php
 require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');
-\GunFE\Lead::getInstance()->clear();
-$lead = \GunFE\Lead::getInstance();
+\FluxFE\Lead::getInstance()->clear();
+$lead = \FluxFE\Lead::getInstance();
 
 // Save the lead initially
 $lead->save(true);
@@ -11,7 +11,7 @@ if (isset($_REQUEST['__submit']) && $_REQUEST['__submit'] == '1') {
 	header('Location: ' . $next_page);
 	exit();
 }
-\GunFE\Lead::debug();
+\FluxFE\Lead::debug();
 ?>
 <link rel='stylesheet' id='ig-pb-bootstrap-css'  href='http://spacemanwalking.com/wp-content/plugins/ig-pagebuilder/assets/3rd-party/bootstrap3/css/bootstrap_frontend.min.css?ver=3.0.2' type='text/css' media='all' />
 <div class="entry-content clearfix">

@@ -4,7 +4,7 @@ use Mojavi\View\View;
 use Mojavi\Request\Request;
 use Mojavi\Logging\LoggerManager;
 // +----------------------------------------------------------------------------+
-// | This file is part of the Gun package.                                      |
+// | This file is part of the Flux package.                                      |
 // |                                                                            |
 // | For the full copyright and license information, please view the LICENSE    |
 // | file that was distributed with this source code.                           |
@@ -23,15 +23,15 @@ class RAction extends BasicAction
     public function execute ()
     {
     	try {
-	    	/* @var $lead \GunFE\Lead */
+	    	/* @var $lead \FluxFE\Lead */
     		
     		// Clear the lead if needed
 	    	if (isset($_REQUEST['__clear']) && $_REQUEST['__clear'] == '1') {
-	    		\GunFE\Lead::clear();
+	    		\FluxFE\Lead::clear();
 	    	}
 	
 	    	// Get a new instance of the lead (or existing instance) and save it to the db
-	    	$lead = \GunFE\Lead::getInstance();
+	    	$lead = \FluxFE\Lead::getInstance();
 			$lead->save(true);
 	
 			// Get the redirect url, formatted with placeholders injected

@@ -1,5 +1,5 @@
 <?php
-    use gunLocal\util\localLead as localLead;
+    use FluxLocal\util\localLead as localLead;
     
     require_once(__DIR__ . '/../lib/init.php');
     session_start();
@@ -31,7 +31,7 @@
     $clear_query_string = true;
     require_once(LOCAL_LIB_PATH . '/header.php');
     
-    $external_state = $localLead->retrieveGunLeadValue('e_state', '');
+    $external_state = $localLead->retrieveFluxLeadValue('e_state', '');
 ?>
 <style type="text/css">
     #sh_results_div a {

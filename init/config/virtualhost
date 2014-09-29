@@ -1,15 +1,13 @@
 <VirtualHost *:80>
     DocumentRoot /home/fluxfe/frontend/docroot/
-    ServerName frontend.flux.local
+    ServerName www.fluxrt.local
 
     RewriteEngine On
     RewriteCond %{REQUEST_URI} !/$
+    RewriteRule ^/([^.]+)/([^.]+)\.json$ /api.php?module=$1&action=$2 [L,QSA]
+    RewriteRule ^/([^.]+)\.json$ /api.php?module=Default&action=$1 [L,QSA]
     RewriteRule ^/([^.]+)/([^.]+)$ /index.php?module=$1&action=$2 [L,QSA]
     RewriteRule ^/([^.]+)$ /index.php?module=Default&action=$1 [L,QSA]
-
-    LogFormat "%a %v %l %u %t %D \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" flux
-    CustomLog /var/log/httpd/frontend.flux.access.log flux
-    ErrorLog /var/log/httpd/frontend.flux.error.log
 
     <Directory "/home/fluxfe/frontend/docroot/">
         Options FollowSymLinks

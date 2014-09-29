@@ -1,5 +1,5 @@
 <?php
-    use gunLocal\util\localLead as localLead;
+    use FluxLocal\util\localLead as localLead;
     
     if (file_exists(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php')) {
         require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');

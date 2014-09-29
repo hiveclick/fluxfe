@@ -19,7 +19,7 @@ class DefaultIndexView extends BasicView
         // set our template
 
         // set the title
-        $this->setTitle('Gun');
+        $this->setTitle('Flux');
 
     }
 

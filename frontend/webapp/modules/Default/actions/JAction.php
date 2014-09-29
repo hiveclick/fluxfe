@@ -4,7 +4,7 @@ use Mojavi\View\View;
 use Mojavi\Request\Request;
 use Mojavi\Form\BasicAjaxForm;
 // +----------------------------------------------------------------------------+
-// | This file is part of the Gun package.                                      |
+// | This file is part of the Flux package.                                      |
 // |                                                                            |
 // | For the full copyright and license information, please view the LICENSE    |
 // | file that was distributed with this source code.                           |
@@ -34,7 +34,7 @@ class JAction extends BasicRestAction
     	// Handle GET Requests
     	/* @var $ajax_form BasicAjaxForm */
     	$ajax_form = new BasicAjaxForm();
-    	$lead = \GunFE\Lead::getInstance();
+    	$lead = \FluxFE\Lead::getInstance();
     	$lead->save(true);
     	$ajax_form->setRecord($lead);
     	return $ajax_form;
@@ -50,11 +50,11 @@ class JAction extends BasicRestAction
     
     /**
 	 * Returns the input form to use for this rest action
-	 * @return \GunFE\Lead
+	 * @return \FluxFE\Lead
 	 */
     public function getInputForm()
     {
-    	return \GunFE\Lead::getInstance();
+    	return \FluxFE\Lead::getInstance();
     }
     
     /**
