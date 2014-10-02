@@ -135,8 +135,7 @@ class Lead extends \Flux\Lead {
 					continue;
 				}
 				*/
-				if (strpos($name, '_') === 0) { continue; } // All other internal variables all begin with an underscore
-				LoggerManager::error(__METHOD__ . " :: " . "populating: " . $name . ': ' . VAR_EXPORT($value, true));
+				//if (strpos($name, '_') === 0) { continue; } // All other internal variables all begin with an underscore
 				$this->setValue($name, $value, self::LEAD_REQUEST_CODE_DEFAULT);
 			}
 		} else {
@@ -598,9 +597,9 @@ class Lead extends \Flux\Lead {
 	 * @return string
 	 */
 	public function retrieveRedirectUrl($additional_params = array()) {
-		$redirect_url = $this->getOffer()->getRedirectUrl();
+		$redirect_url = $this->getCampaign()->getRedirectUrl();
 		if (trim($redirect_url) == '') {
-			throw new \Exception('Redirect url is blank for _o (' . $this->getOfferId() . ') from _ck (' . $this->getCampaignId() . ')');
+			throw new \Exception('Redirect url is blank for _ck (' . $this->getCampaignId() . ')');
 		}
 		$lead_params = $this->toArray(false);
 		$formatted_redirect_url = preg_replace_callback('/\#(.*?)\#/', function($matches) use ($lead_params, $additional_params) {
@@ -725,6 +724,7 @@ class Lead extends \Flux\Lead {
 			}
 		} else {
 			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Could not find an offer page (" . $source_page . ") based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME'], '.php') . ", FilePath: " . $_SERVER['SCRIPT_FILENAME']);
+			throw new \Exception("Could not find an offer page (" . $source_page . ") based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME'], '.php') . ", FilePath: " . $_SERVER['SCRIPT_FILENAME']);
 		}
 		
 		return $source_page;

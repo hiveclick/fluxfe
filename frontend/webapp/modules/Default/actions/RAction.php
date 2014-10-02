@@ -47,6 +47,7 @@ class RAction extends BasicAction
     	} catch (\Exception $e) {
     		echo "<h1>Bad Request</h1>";
     		echo $e->getMessage();
+    		\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . $e->getTraceAsString());
     	}
 		return View::NONE;
     }

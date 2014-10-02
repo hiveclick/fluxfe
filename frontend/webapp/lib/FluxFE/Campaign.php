@@ -18,7 +18,11 @@ class Campaign extends \Flux\Campaign {
 	 * @return string
 	 */
 	function getCacheFilename($cache_key) {
-		return 'campaign_' . $cache_key . '.json';
+		if (is_string($cache_key)) {
+			return 'campaign_' . $cache_key . '.json';
+		} else if ($cache_key instanceof \MongoId) {
+			return 'campaign_' . $cache_key->__toString() . '.json';
+		}
 	}
 	
 	/**
@@ -63,11 +67,11 @@ class Campaign extends \Flux\Campaign {
 	 */
 	function query(array $criteria = array(), $merge_id = true) {
 		if (defined('FLOW_CACHE_DIR')) {
-			$response = Ajax::sendAjaxAndCache(FLOW_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()) . '.json', '/campaign/campaign', array('_id' => (string)$this->getId()));
+			$response = Ajax::sendAjaxAndCache(FLOW_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()), '/campaign/campaign', array('_id' => $this->getId()->__toString()));
 		} else if (defined('MO_CACHE_DIR')) {
-			$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()) . '.json', '/campaign/campaign', array('_id' => (string)$this->getId()));
+			$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()), '/campaign/campaign', array('_id' => $this->getId()->__toString()));
 		} else {
-			$response = Ajax::sendAjax('/campaign/campaign', array('_id' => (string)$this->getId()));
+			$response = Ajax::sendAjax('/campaign/campaign', array('_id' => $this->getId()->__toString()));
 		}
 		if (isset($response['record'])) {
 			$this->populate($response['record']);

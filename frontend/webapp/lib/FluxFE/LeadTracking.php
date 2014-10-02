@@ -45,12 +45,14 @@ class LeadTracking extends \Flux\LeadTracking {
 	 */
 	function getCampaign() {
 		if (is_null($this->_campaign)) {
-			$this->_campaign = new \FluxFE\Campaign();
-			if ($this->getCampaignId() == 0) {
+			if ($this->getCampaignId() == '') {
 				$this->findDefaultCampaign();
 			}
-			$this->_campaign->setId($this->getCampaignId());
-			$this->_campaign->query();
+			if ($this->getCampaignId() > 0) {
+				$this->_campaign = new \FluxFE\Campaign();
+				$this->_campaign->setId($this->getCampaignId());
+				$this->_campaign->query();
+			}
 		}
 		return $this->_campaign;
 	}
@@ -61,11 +63,15 @@ class LeadTracking extends \Flux\LeadTracking {
 	 */
 	function setCampaignId($arg0) {
 		$this->_campaign_id = $arg0;
-		$this->_campaign = null;
+		
+		$this->_campaign = new \FluxFE\Campaign();
+		$this->_campaign->setId($arg0);
+		$this->_campaign->query();
+
+		$this->setClientId($this->_campaign->getClientId());
+		$this->setOfferId($this->_campaign->getOfferId());
+		
 		$this->addModifiedColumn("_campaign_id");
-		// Fetch the offer and client from the campaign
-		$this->setOfferId($this->getCampaign()->getOfferId());
-		$this->setClientId($this->getCampaign()->getClientId());
 		return $this;
 	}
 	
@@ -78,15 +84,19 @@ class LeadTracking extends \Flux\LeadTracking {
 			if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/.cache/config.php')) {
 				include_once($_SERVER['DOCUMENT_ROOT'] . '/.cache/config.php');
 				if (defined('DEFAULT_CAMPAIGN_ID')) {
-					$this->setCampaignId(DEFAULT_CAMPAIGN_ID);
+					$this->_campaign_id = DEFAULT_CAMPAIGN_ID;
+					$this->_campaign = null;
 				} else {
 					\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because DEFAULT_CAMPAIGN_ID is missing");
+					throw new \Exception("Cannot retrieve default campaign because DEFAULT_CAMPAIGN_ID is missing");
 				}
 			} else {
-				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because .config.php is missing");
+				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because config.php is missing in " . $_SERVER['DOCUMENT_ROOT'] . '/.cache/');
+				throw new \Exception("Cannot retrieve default campaign because config.php is missing in " . $_SERVER['DOCUMENT_ROOT'] . '/.cache/');
 			}
 		} else {
 			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because S_SERVER[DOCUMENT_ROOT] is missing");
+			throw new \Exception("Cannot retrieve default campaign because S_SERVER[DOCUMENT_ROOT] is missing");
 		}
 	}
 	
