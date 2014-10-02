@@ -66,12 +66,19 @@ class Campaign extends \Flux\Campaign {
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
 	function query(array $criteria = array(), $merge_id = true) {
+		$params = array();
+		if ($this->getId() instanceof \MongoId) {
+			$params['_id'] = $this->getId()->__toString();
+		} else if (is_string($this->getId())) {
+			$params['_id'] = $this->getId();
+		}
+		
 		if (defined('FLOW_CACHE_DIR')) {
-			$response = Ajax::sendAjaxAndCache(FLOW_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()), '/campaign/campaign', array('_id' => $this->getId()->__toString()));
+			$response = Ajax::sendAjaxAndCache(FLOW_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()), '/campaign/campaign', $params);
 		} else if (defined('MO_CACHE_DIR')) {
-			$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()), '/campaign/campaign', array('_id' => $this->getId()->__toString()));
+			$response = Ajax::sendAjaxAndCache(MO_CACHE_DIR . '/' . $this->getCacheFilename($this->getId()), '/campaign/campaign', $params);
 		} else {
-			$response = Ajax::sendAjax('/campaign/campaign', array('_id' => $this->getId()->__toString()));
+			$response = Ajax::sendAjax('/campaign/campaign', $params);
 		}
 		if (isset($response['record'])) {
 			$this->populate($response['record']);
