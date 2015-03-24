@@ -75,29 +75,6 @@ class LeadTracking extends \Flux\LeadTracking {
 		return $this;
 	}
 	
-	/**
-	 * Finds the default campaign if we don't have one
-	 *
-	 */
-	function findDefaultCampaign() {
-		if (isset($_SERVER['DOCUMENT_ROOT'])) {
-			if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/.cache/config.php')) {
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/.cache/config.php');
-				if (defined('DEFAULT_CAMPAIGN_ID')) {
-					$this->_campaign_id = DEFAULT_CAMPAIGN_ID;
-					$this->_campaign = null;
-				} else {
-					\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because DEFAULT_CAMPAIGN_ID is missing");
-					throw new \Exception("Cannot retrieve default campaign because DEFAULT_CAMPAIGN_ID is missing");
-				}
-			} else {
-				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because config.php is missing in " . $_SERVER['DOCUMENT_ROOT'] . '/.cache/');
-				throw new \Exception("Cannot retrieve default campaign because config.php is missing in " . $_SERVER['DOCUMENT_ROOT'] . '/.cache/');
-			}
-		} else {
-			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because S_SERVER[DOCUMENT_ROOT] is missing");
-			throw new \Exception("Cannot retrieve default campaign because S_SERVER[DOCUMENT_ROOT] is missing");
-		}
-	}
+	
 	
 }

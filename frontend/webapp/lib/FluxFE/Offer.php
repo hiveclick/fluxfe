@@ -5,8 +5,6 @@ use Mojavi\Form\MongoForm;
 use Mojavi\Util\Ajax;
 
 class Offer extends \Flux\Offer {
-
-	private $client;
 	
 	/**
 	 * Returns the cache filename
@@ -25,19 +23,6 @@ class Offer extends \Flux\Offer {
 		$ret_val[] = $this->getCacheFilename($this->getFolderName());
 		$ret_val[] = $this->getCacheFilename($this->getId());
 		return $ret_val;
-	}
-	
-	/**
-	 * Returns the client
-	 * @return integer
-	 */
-	function getClient() {
-		if (is_null($this->client)) {
-			$this->client = new \FluxFE\Client();
-			$this->client->setId($this->getClientId());
-			$this->client->query();
-		}
-		return $this->client;
 	}
 
 	/**

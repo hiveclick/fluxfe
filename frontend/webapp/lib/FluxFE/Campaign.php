@@ -6,9 +6,6 @@ use Mojavi\Util\Ajax;
 
 class Campaign extends \Flux\Campaign {
 
-	private $offer;
-	private $client;
-
 	// +------------------------------------------------------------------------+
 	// | HELPER METHODS															|
 	// +------------------------------------------------------------------------+
@@ -33,32 +30,6 @@ class Campaign extends \Flux\Campaign {
 		$ret_val = array();
 		$ret_val[] = $this->getCacheFilename($this->getId());
 		return $ret_val;
-	}
-	
-	/**
-	 * Returns the client
-	 * @return \FluxFE\Client
-	 */
-	function getClient() {
-		if (is_null($this->client)) {
-			$this->client = new \FluxFE\Client();
-			$this->client->setId($this->getClientId());
-			$this->client->query();
-		}
-		return $this->client;
-	}
-
-	/**
-	 * Returns the offer
-	 * @return \FluxFE\Offer
-	 */
-	function getOffer() {
-		if (is_null($this->offer)) {
-			$this->offer = new \FluxFE\Offer();
-			$this->offer->setId($this->getOfferId());
-			$this->offer->query();
-		}
-		return $this->offer;
 	}
 
 	/**

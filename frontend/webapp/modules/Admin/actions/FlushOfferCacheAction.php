@@ -48,13 +48,12 @@ class FlushOfferCacheAction extends BasicRestAction
     		
     	
 	    	$offer_page = new \FluxFE\OfferPage();
-	    	$offer_page->setOfferId($input_form->getOfferId());
+	    	$offer_page->setOffer($input_form->getId());
 	    	$offer_pages = $offer_page->queryAll();
 	    	foreach ($offer_pages as $offer_page) {
 	    		$hashes = array_merge($hashes, $offer_page->getCacheFilenames());
 	    	}
 	    	\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Clearing cache: " . var_export($hashes, true));
-	    	apc_delete($hashes);
     	}
     	$ajax_form->setRecord($input_form);
     	return $ajax_form;

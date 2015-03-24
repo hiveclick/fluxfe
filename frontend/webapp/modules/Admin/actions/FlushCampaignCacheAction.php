@@ -53,7 +53,6 @@ class FlushCampaignCacheAction extends BasicRestAction
     	$hashes = $input_form->getCacheFilenames();
     		
 	    \Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Clearing cache: " . var_export($hashes, true));
-	    apc_delete($hashes);
     	
     	$ajax_form->setRecord($input_form);
     	return $ajax_form;
