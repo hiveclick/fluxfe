@@ -1,0 +1,104 @@
+body, html {
+	height: 100%;
+	width: 100%;
+}
+
+/*
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	color:black;
+}
+*/
+
+.intro-header {
+	padding-top: 60px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 20px;
+	color: #4d4c4c;
+	background-color:#184A6F; no-repeat center center;
+	background-size: cover;
+	text-align: center;
+}
+
+
+
+.welcome {
+	background: url(../img/blue_bg.jpg)  no-repeat fixed;
+	/*background: url(../img/hip_bg1.0.jpg) no-repeat center center;*/
+	font-weight: 100;
+	text-align:center;
+	padding-top:80px;
+	padding-bottom: 20px;
+	height:relative;
+	position: relative;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+	color:white;
+	
+}
+
+.gobutton {
+	background-color:#CB4E4E;
+	height:relative;
+	padding-bottom:15px;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+	
+}
+
+.gobutton2 {
+	background-color:#184A6F;
+	height:relative;
+	padding-bottom:10px;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+	
+}
+
+
+.section-a h2, p {
+	color:black;
+	font-weight: 400;
+}
+
+.section-b h2, p {
+	
+	color:black;
+	font-weight: 400;
+}
+
+.section-c h2, p {
+	color:black;
+	font-weight: 400;
+}
+
+
+.footer {
+	background-color:lightgrey;
+	color:white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+#breakingnews {
+	background-color:#CB4E4E;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+	text-align:center;
+}
+
+.about {
+	padding:15px;
+}
+
+a {
+	color:black;
+}
+
+a:hover {
+	color:blue;
+	text-decoration:none;
+}
+
+li:hover {
+	color:red;
+}
