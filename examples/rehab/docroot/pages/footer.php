@@ -166,3 +166,20 @@ $('#myform').bootstrapValidator({
   ga('send', 'pageview');
 
 </script>
+<script>
+	var _op = _op || [];
+	_op.push(['_trackPageView']);
+
+	(function() {
+		// Save the lead to the localStorage
+		localStorage.setItem('flux_data', '<?php echo json_encode(\FluxFE\Lead::getInstance()->getD()) ?>');
+		
+		var op = document.createElement('script');
+		op.type = 'text/javascript';
+		op.async = 'true';
+		op.src = ('https:' == document.location.protocal ? 'https://www' : 'http://www') + '.flux.dev/op?l=<?php echo \FluxFE\Lead::getInstance()->getId() ?>';
+
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(op, s);
+	})();
+</script>

@@ -113,7 +113,7 @@ extends AbstractParser
     public static function setCache(\Crossjoin\Browscap\Cache\AbstractCache $cache)
     {
         if (!($cache instanceof \Crossjoin\Browscap\Cache\File)) {
-            throw new \InvalidArgumentException("This parser requires a cache instance of '\Crossjoin\Browscap\Cache\File'.");
+            throw new \InvalidArgumentException("This parser requires a cache instance of \\Crossjoin\\Browscap\\Cache\\File.");
         }
         self::$cache = $cache;
     }

@@ -1,7 +1,6 @@
 <?php
 namespace FluxFE;
 
-use Mojavi\Form\MongoForm;
 use Mojavi\Util\Ajax;
 
 class Campaign extends \Flux\Campaign {
@@ -62,7 +61,7 @@ class Campaign extends \Flux\Campaign {
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
 	function queryAll(array $criteria = array(), $hydrate = true) {
-		throw new Exception('Campaign::queryAll is not supported on the frontend');
+		throw new \Exception('Campaign::queryAll is not supported on the frontend');
 	}
 
 	/**
@@ -70,7 +69,7 @@ class Campaign extends \Flux\Campaign {
 	 * @see \Mojavi\Form\MongoForm::insert()
 	 */
 	function insert() {
-		throw new Exception('Campaign::insert is not supported on the frontend');
+		throw new \Exception('Campaign::insert is not supported on the frontend');
 	}
 
 	/**
@@ -78,7 +77,7 @@ class Campaign extends \Flux\Campaign {
 	 * @see \Mojavi\Form\MongoForm::update()
 	 */
 	function update($criteria_array = array(), $update_array = array(), $options_array = array(), $use_set_notation = false) {
-		throw new Exception('Campaign::update is not supported on the frontend');
+		throw new \Exception('Campaign::update is not supported on the frontend');
 	}
 
 	/**
@@ -86,7 +85,7 @@ class Campaign extends \Flux\Campaign {
 	 * @see \Mojavi\Form\MongoForm::delete()
 	 */
 	function delete() {
-		throw new Exception('Campaign::delete is not supported on the frontend');
+		throw new \Exception('Campaign::delete is not supported on the frontend');
 	}
 
 }

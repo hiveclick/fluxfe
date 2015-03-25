@@ -1,7 +1,6 @@
 <?php
 namespace FluxFE;
 
-use Mojavi\Form\MongoForm;
 use Mojavi\Util\Ajax;
 
 class Client extends \Flux\Client {
@@ -47,7 +46,7 @@ class Client extends \Flux\Client {
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
 	function queryAll(array $criteria = array(), $hydrate = true) {
-		throw new Exception('Client::queryAll is not supported on the frontend');
+		throw new \Exception('Client::queryAll is not supported on the frontend');
 	}
 
 	/**
@@ -55,7 +54,7 @@ class Client extends \Flux\Client {
 	 * @see \Mojavi\Form\MongoForm::insert()
 	 */
 	function insert() {
-		throw new Exception('Client::insert is not supported on the frontend');
+		throw new \Exception('Client::insert is not supported on the frontend');
 	}
 
 	/**
@@ -63,7 +62,7 @@ class Client extends \Flux\Client {
 	 * @see \Mojavi\Form\MongoForm::update()
 	 */
 	function update($criteria_array = array(), $update_array = array(), $options_array = array(), $use_set_notation = false) {
-		throw new Exception('Client::update is not supported on the frontend');
+		throw new \Exception('Client::update is not supported on the frontend');
 	}
 
 	/**
@@ -71,7 +70,7 @@ class Client extends \Flux\Client {
 	 * @see \Mojavi\Form\MongoForm::delete()
 	 */
 	function delete() {
-		throw new Exception('Client::delete is not supported on the frontend');
+		throw new \Exception('Client::delete is not supported on the frontend');
 	}
 
 }

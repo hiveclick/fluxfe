@@ -1,7 +1,6 @@
 <?php
 namespace FluxFE;
 
-use Mojavi\Form\MongoForm;
 use Mojavi\Util\Ajax;
 
 class Offer extends \Flux\Offer {

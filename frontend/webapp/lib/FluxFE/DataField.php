@@ -1,9 +1,7 @@
 <?php
 namespace FluxFE;
 
-use Mojavi\Form\MongoForm;
 use Mojavi\Util\Ajax;
-use Mojavi\__autoload;
 
 class DataField extends \Flux\DataField {
 

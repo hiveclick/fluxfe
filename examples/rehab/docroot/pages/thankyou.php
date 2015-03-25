@@ -1,3 +1,7 @@
+<?php
+require_once(dirname($_SERVER['DOCUMENT_ROOT']) . '/lib/init.php');
+\FluxFE\Lead::getInstance();
+?>
 <?php include("header.php") ?>
 
 

@@ -1,8 +1,6 @@
 <?php
 namespace FluxFE;
 
-use Mojavi\Logging\LoggerManager;
-
 class Lead extends \Flux\Lead {
 
 	const COOKIE_NAME = 'FluxLocal';
@@ -15,12 +13,6 @@ class Lead extends \Flux\Lead {
 	// used to generate a uniform timestamp each time this lead is accessed
 	private $__uniformTimestamp;
 
-	private $errors;
-
-	public function __construct() {
-		parent::__construct();		
-	}
-
 	/**
 	 * Returns a new instance of this lead
 	 * @return \Flux\LocalLead
@@ -31,41 +23,30 @@ class Lead extends \Flux\Lead {
 
 			// Load the lead in from the cookie (if it exists)
 			$found_lead = false;
-						
-			if (session_id() != '') {
-				if (defined('COOKIE_NAME') && isset($_SESSION[COOKIE_NAME])) {
-				    if (\MongoId::isValid($_SESSION[COOKIE_NAME])) {
-					   self::$_lead->setId($_SESSION[COOKIE_NAME]);
-					   self::$_lead->query();
-					   $found_lead = true;
-				    }
-				}
-				if (defined('MO_COOKIE_NAME') && isset($_SESSION[MO_COOKIE_NAME])) {
-				    if (\MongoId::isValid($_SESSION[MO_COOKIE_NAME])) {
-				        self::$_lead->setId($_SESSION[MO_COOKIE_NAME]);
-				        self::$_lead->query();
-				        $found_lead = true;
-				    }
-				}
+
+			if (isset($_REQUEST['_id'])) {
+			    self::$_lead->setId($_REQUEST['_id']);
+			    self::$_lead->query();
+			    $found_lead = true;
+			}
+			
+			if ($found_lead === false && session_id() != '' && isset($_SESSION[self::getCookieName()])) {
+			    if (\MongoId::isValid($_SESSION[self::getCookieName()])) {
+				   self::$_lead->setId($_SESSION[self::getCookieName()]);
+				   self::$_lead->query();
+				   $found_lead = true;
+                }
 			}
 
 			// A cookie should copy the data, but create a new lead with a new campaign
-			if ($found_lead === false && defined('COOKIE_NAME') &&  isset($_COOKIE[COOKIE_NAME])) {
-                if (\MongoId::isValid($_COOKIE[COOKIE_NAME])) {
-				   self::$_lead->setId($_COOKIE[COOKIE_NAME]);
+			if ($found_lead === false && isset($_COOKIE[self::getCookieName()])) {
+                if (\MongoId::isValid($_COOKIE[self::getCookieName()])) {
+				   self::$_lead->setId($_COOKIE[self::getCookieName()]);
 				   self::$_lead->query();
 				   self::$_lead->setId(null);
 				   self::$_lead->setT(null);
+				   self::$_lead->setE(null);
 				   $found_lead = true;
-			    }
-			}
-			if ($found_lead === false && defined('MO_COOKIE_NAME') &&  isset($_COOKIE[MO_COOKIE_NAME])) {
-			    if (\MongoId::isValid($_COOKIE[MO_COOKIE_NAME])) {
-			        self::$_lead->setId($_COOKIE[MO_COOKIE_NAME]);
-			        self::$_lead->query();
-			        self::$_lead->setId(null);
-			        self::$_lead->setT(null);
-			        $found_lead = true;
 			    }
 			}
 
@@ -74,10 +55,7 @@ class Lead extends \Flux\Lead {
 			
 			// Find the default campaign if we don't have one yet
 			if (self::$_lead->getTracking()->getCampaign()->getCampaignId() == '') {
-			    
 			    self::$_lead->getTracking()->setCampaign(self::findDefaultCampaign());
-			} else {
-			    \Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Using saved campaign id: " . self::$_lead->getTracking()->getCampaign()->getCampaignId());
 			}
 
 			// Save our populated lead to the session
@@ -88,25 +66,6 @@ class Lead extends \Flux\Lead {
 	}
 
 	/**
-	 * Populates this lead by setting values into the internal _d variable
-	 * @return \Flux\Lead
-	 */
-	/*
-	function populate($arg0, $modify_columns = true) {
-		parent::populate($arg0, $modify_columns);
-		if (is_array($arg0)) {
-			foreach ($arg0 as $name => $value) {
-				//if (strpos($name, '_') === 0) { continue; } // All other internal variables all begin with an underscore
-				self::$_lead->setValue($name, $value, self::LEAD_REQUEST_CODE_DEFAULT);
-			}
-		} else {
-			self::$_lead->setValue($name, $value, self::LEAD_REQUEST_CODE_DEFAULT);
-		}
-		return $this;
-	}
-	*/
-
-	/**
 	 * Saves the lead to the session
 	 * @return void
 	 */
@@ -115,23 +74,29 @@ class Lead extends \Flux\Lead {
 		$this->persist();
 		
 		// Save to the session
-		if (session_id() != '' && defined('COOKIE_NAME')) {
+		if (session_id() != '') {
 			//we could just save the class into the session, but for consistency let's just serialize the variables anyway			
-			$_SESSION[COOKIE_NAME] = (string)$this->getId();
-		} else if (session_id() != '' && defined('MO_COOKIE_NAME')) {
-		    $_SESSION[MO_COOKIE_NAME] = (string)$this->getId();
-		} else {
-			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: [ " . $this->getId() . " ] SESSION NOT SAVED BECAUSE session_id is blank or COOKIE_NAME is not defined");
+			$_SESSION[self::getCookieName()] = (string)$this->getId();
 		}
 				
-		if (defined('COOKIE_NAME')) { // Paths use the COOKIE_NAME constant
-			header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-			setcookie(COOKIE_NAME, (string)$this->getId(), time()+60*60*24*300, '/');
-		} else if (defined('MO_COOKIE_NAME')) { // Frontend and redirects use the MO_COOKIE_NAME constant
-			header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-			setcookie(MO_COOKIE_NAME, (string)$this->getId(), time()+60*60*24*300, '/');
-		}
+		header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
+		setcookie(self::getCookieName(), (string)$this->getId(), time()+60*60*24*300, '/');
+
 		return $this;
+	}
+	
+	/**
+	 * Returns the cookie name to use
+	 * @return string
+	 */
+	public static function getCookieName() {
+	    if (defined('COOKIE_NAME')) {
+	        return COOKIE_NAME;
+	    } else if (defined('MO_COOKIE_NAME')) {
+	        return MO_COOKIE_NAME;
+	    } else {
+	        return 'flux_cookie';
+	    }
 	}
 
 	/**
@@ -148,7 +113,7 @@ class Lead extends \Flux\Lead {
 			$insert_id = $this->insert();
 			$this->setId($insert_id);
 		} else {
-		    // Update the lead 
+		    // Update the lead   
             $this->update();
 		}
 
@@ -188,7 +153,7 @@ class Lead extends \Flux\Lead {
 	            if (defined('DEFAULT_CAMPAIGN_ID')) {
 	                return DEFAULT_CAMPAIGN_ID;
 	            } else {
-	                \Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because DEFAULT_CAMPAIGN_ID is missing");
+	                \Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because DEFAULT_CAMPAIGN_ID is missing in " . $_SERVER['DOCUMENT_ROOT']);
 	                throw new \Exception("Cannot retrieve default campaign because DEFAULT_CAMPAIGN_ID is missing");
 	            }
 	        } else {
@@ -199,53 +164,6 @@ class Lead extends \Flux\Lead {
 	        \Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Cannot retrieve default campaign because S_SERVER[DOCUMENT_ROOT] is missing");
 	        throw new \Exception("Cannot retrieve default campaign because S_SERVER[DOCUMENT_ROOT] is missing");
 	    }
-	}
-
-	/**
-	 * Returns the name of the cookie
-	 * @param string $prefix
-	 * @return string
-	 */
-	public static function createCookieName($prefix = '') {
-		//right now we do a cookie per offer_id (prefix)
-		return $prefix . COOKIE_NAME;
-	}
-
-	/**
-	 * Returns the id from the cookie (if exists)
-	 * @param string $prefix
-	 * @return string
-	 */
-	public static function findCookieId($prefix = '') {
-		$_id = null;
-		if(array_key_exists(self::createCookieName($prefix), $_COOKIE)) {
-			if(is_string($_COOKIE[self::createCookieName($prefix)])) {
-				$_id = $_COOKIE[self::createCookieName($prefix)];
-			}
-		}
-		return $_id;
-	}
-
-	/**
-	 * Clears the id from the cookie
-	 * @param string $prefix
-	 */
-	public static function clearCookieId($prefix = '') {
-		if(array_key_exists(self::createCookieName($prefix), $_COOKIE)) {
-			unset($_COOKIE[self::createCookieName($prefix)]);
-			header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-			setcookie(self::createCookieName($prefix), null, -1, '/');
-		}
-	}
-
-	/**
-	 * Saves the lead it into the cookie
-	 * @param string $_id
-	 * @param string $prefix
-	 */
-	public static function saveCookieId($_id, $prefix = '') {
-		header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-		setcookie(self::createCookieName($prefix), $_id, time()+(60*60*24*300), '/');
 	}
 	
 	/**
@@ -316,102 +234,103 @@ class Lead extends \Flux\Lead {
 		return $formatted_redirect_url;
 	}
 	
-	/**
-	 * Finds the next page to go to based on the flow
-	 * @todo check this code
-	 * @return string
-	 */
-	function findNextPage() {
-		// First find out what page we are on
-		$source_page = basename($_SERVER['SCRIPT_FILENAME']);
+// 	/**
+// 	 * Finds the next page to go to based on the flow
+// 	 * @todo check this code
+// 	 * @deprecated
+// 	 * @return string
+// 	 */
+// 	function findNextPage() {
+// 		// First find out what page we are on
+// 		$source_page = basename($_SERVER['SCRIPT_FILENAME']);
 
-		/* @var $offer_page \Flux\OfferPage */
-		$offer_page = new \FluxFE\OfferPage();
-		$offer_page->setOfferId($this->getOffer()->getId());
-		$offer_page->setFilePath($_SERVER['SCRIPT_FILENAME']);
-		$offer_page->setPageName(basename($_SERVER['SCRIPT_FILENAME']));
-		$offer_page->queryByPageName();
-		if ($offer_page->getId() == 0) {
-			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Could not find an offer page based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME']) . ", FilePath: " . $_SERVER['SCRIPT_FILENAME'] . '), attempting short page name...');
-			$offer_page = new \FluxFE\OfferPage();
-			$offer_page->setOfferId($this->getOffer()->getId());
-			$offer_page->setFilePath($_SERVER['SCRIPT_FILENAME']);
-			$offer_page->setPageName(basename($_SERVER['SCRIPT_FILENAME'], '.php'));
-			$offer_page->queryByPageName();
-		}
+// 		/* @var $offer_page \Flux\OfferPage */
+// 		$offer_page = new \FluxFE\OfferPage();
+// 		$offer_page->setOfferId($this->getOffer()->getId());
+// 		$offer_page->setFilePath($_SERVER['SCRIPT_FILENAME']);
+// 		$offer_page->setPageName(basename($_SERVER['SCRIPT_FILENAME']));
+// 		$offer_page->queryByPageName();
+// 		if ($offer_page->getId() == 0) {
+// 			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Could not find an offer page based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME']) . ", FilePath: " . $_SERVER['SCRIPT_FILENAME'] . '), attempting short page name...');
+// 			$offer_page = new \FluxFE\OfferPage();
+// 			$offer_page->setOfferId($this->getOffer()->getId());
+// 			$offer_page->setFilePath($_SERVER['SCRIPT_FILENAME']);
+// 			$offer_page->setPageName(basename($_SERVER['SCRIPT_FILENAME'], '.php'));
+// 			$offer_page->queryByPageName();
+// 		}
 		
-		if ($offer_page->getId() > 0) {
-			if (count($offer_page->getOfferPageFlows()) > 0) {
-				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page->getOfferPageFlows()) . " Flows found");
-				/* @var $offer_page_flow \Flux\OfferPageFlow */
-				foreach ($offer_page->getOfferPageFlows() as $offer_page_flow) {
+// 		if ($offer_page->getId() > 0) {
+// 			if (count($offer_page->getOfferPageFlows()) > 0) {
+// 				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page->getOfferPageFlows()) . " Flows found");
+// 				/* @var $offer_page_flow \Flux\OfferPageFlow */
+// 				foreach ($offer_page->getOfferPageFlows() as $offer_page_flow) {
 					
-					if (count($offer_page_flow->getFilterConditions()) == 0) { 
-						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): No filters, processing flow");
-						$filter_pass = true;
-					} else {
-						// Check if the conditions apply
-						if ($offer_page_flow->getFilterType() == \Flux\OfferPageFlow::FILTER_TYPE_ALL) {
-							\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page_flow->getFilterConditions()) . " filters, processing ALL conditions");
-							$filter_pass = true;
-							/* @var $filter_condition \Flux\OfferPageFlowFilter */
-							foreach ($offer_page_flow->getFilterConditions() as $filter_condition) {
-								$old_value = $this->getValue($filter_condition->getDataField()->getKeyName());
-								\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Checking if " . $old_value . " " . $filter_condition->getFilterOpText($filter_condition->getFilterOp()) . " " . implode(", ", $filter_condition->getFilterValue()));
-								$filter_pass &= $filter_condition->checkCondition($old_value);
-							}
-						} else {
-							\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page_flow->getFilterConditions()) . " filters, processing ANY conditions");
-							$filter_pass = false;
-							foreach ($offer_page_flow->getFilterConditions() as $filter_condition) {
-								$old_value = $this->getValue($filter_condition->getDataField()->getKeyName());
-								\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Checking if " . $old_value . " " . $filter_condition->getFilterOpText($filter_condition->getFilterOp()) . " " . implode(", ", $filter_condition->getFilterValue()));
-								$filter_pass |= $filter_condition->checkCondition($old_value);
-							}
-						}
-					}
+// 					if (count($offer_page_flow->getFilterConditions()) == 0) { 
+// 						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): No filters, processing flow");
+// 						$filter_pass = true;
+// 					} else {
+// 						// Check if the conditions apply
+// 						if ($offer_page_flow->getFilterType() == \Flux\OfferPageFlow::FILTER_TYPE_ALL) {
+// 							\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page_flow->getFilterConditions()) . " filters, processing ALL conditions");
+// 							$filter_pass = true;
+// 							/* @var $filter_condition \Flux\OfferPageFlowFilter */
+// 							foreach ($offer_page_flow->getFilterConditions() as $filter_condition) {
+// 								$old_value = $this->getValue($filter_condition->getDataField()->getKeyName());
+// 								\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Checking if " . $old_value . " " . $filter_condition->getFilterOpText($filter_condition->getFilterOp()) . " " . implode(", ", $filter_condition->getFilterValue()));
+// 								$filter_pass &= $filter_condition->checkCondition($old_value);
+// 							}
+// 						} else {
+// 							\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): " . count($offer_page_flow->getFilterConditions()) . " filters, processing ANY conditions");
+// 							$filter_pass = false;
+// 							foreach ($offer_page_flow->getFilterConditions() as $filter_condition) {
+// 								$old_value = $this->getValue($filter_condition->getDataField()->getKeyName());
+// 								\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Checking if " . $old_value . " " . $filter_condition->getFilterOpText($filter_condition->getFilterOp()) . " " . implode(", ", $filter_condition->getFilterValue()));
+// 								$filter_pass |= $filter_condition->checkCondition($old_value);
+// 							}
+// 						}
+// 					}
 					
-					if ($filter_pass) {
-						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): FILTER PASSES");
-						// There are no conditions, so use this flow
-						/* @var $setter \Flux\OfferPageFlowSetter */
-						foreach ($offer_page_flow->getSetters() as $setter) {
-							if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_SET_IF_EMPTY) {
-								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
-								$this->setValue($setter->getDataField()->getKeyName(), $setter->getSetterValue());
-							} else if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_INCREMENT) {
-								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
-								$this->setValue($setter->getDataField()->getKeyName(), $old_value + (int)$setter->getSetterValue());
-							} else if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_DECREMENT) {
-								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
-								$this->setValue($setter->getDataField()->getKeyName(), $old_value - (int)$setter->getSetterValue());
-							} else {
-								$this->setValue($setter->getDataField()->getKeyName(), $setter->getSetterValue());
-							}
-						}
+// 					if ($filter_pass) {
+// 						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): FILTER PASSES");
+// 						// There are no conditions, so use this flow
+// 						/* @var $setter \Flux\OfferPageFlowSetter */
+// 						foreach ($offer_page_flow->getSetters() as $setter) {
+// 							if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_SET_IF_EMPTY) {
+// 								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
+// 								$this->setValue($setter->getDataField()->getKeyName(), $setter->getSetterValue());
+// 							} else if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_INCREMENT) {
+// 								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
+// 								$this->setValue($setter->getDataField()->getKeyName(), $old_value + (int)$setter->getSetterValue());
+// 							} else if ($setter->getSetterOp() == \Flux\OfferPageFlowSetter::SETTER_DECREMENT) {
+// 								$old_value = (int)$this->getValue($setter->getDataField()->getKeyName());
+// 								$this->setValue($setter->getDataField()->getKeyName(), $old_value - (int)$setter->getSetterValue());
+// 							} else {
+// 								$this->setValue($setter->getDataField()->getKeyName(), $setter->getSetterValue());
+// 							}
+// 						}
 						
-						// Decide if we are going to a remote url or to another page within the flow
-						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Navigation Type is " . $offer_page_flow->getNavigation()->getNavigationType());
-						if ($offer_page_flow->getNavigation()->getNavigationType() == \Flux\OfferPageFlowNavigation::NAVIGATION_TYPE_REMOTE) {
-							$destination_page = $offer_page_flow->getNavigation()->getRemoteUrl();
-						} else {
-							$destination_page = $offer_page_flow->getNavigation()->getDestinationOfferPage()->getPageName();
-						}
-						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Returning destination page for source page (" . $offer_page->getPageName() . "): " . $destination_page);
-						return $destination_page;
-					}
-				}
-			} else {
-				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): No Flows found, using next page: " . $offer_page->getNextPage()->getPageName());
-				return $offer_page->getNextPage()->getPageName();
-			}
-		} else {
-			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Could not find an offer page (" . $source_page . ") based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME'], '.php') . ", FilePath: " . $_SERVER['SCRIPT_FILENAME']);
-			throw new \Exception("Could not find an offer page (" . $source_page . ") based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME'], '.php') . ", FilePath: " . $_SERVER['SCRIPT_FILENAME']);
-		}
+// 						// Decide if we are going to a remote url or to another page within the flow
+// 						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): Navigation Type is " . $offer_page_flow->getNavigation()->getNavigationType());
+// 						if ($offer_page_flow->getNavigation()->getNavigationType() == \Flux\OfferPageFlowNavigation::NAVIGATION_TYPE_REMOTE) {
+// 							$destination_page = $offer_page_flow->getNavigation()->getRemoteUrl();
+// 						} else {
+// 							$destination_page = $offer_page_flow->getNavigation()->getDestinationOfferPage()->getPageName();
+// 						}
+// 						\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Returning destination page for source page (" . $offer_page->getPageName() . "): " . $destination_page);
+// 						return $destination_page;
+// 					}
+// 				}
+// 			} else {
+// 				\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Checking offer page flow for page (" . $offer_page->getPageName() . "): No Flows found, using next page: " . $offer_page->getNextPage()->getPageName());
+// 				return $offer_page->getNextPage()->getPageName();
+// 			}
+// 		} else {
+// 			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: " . "Could not find an offer page (" . $source_page . ") based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME'], '.php') . ", FilePath: " . $_SERVER['SCRIPT_FILENAME']);
+// 			throw new \Exception("Could not find an offer page (" . $source_page . ") based on the page name (Offer: " . $this->getOffer()->getId() . ", PageName: " . basename($_SERVER['SCRIPT_FILENAME'], '.php') . ", FilePath: " . $_SERVER['SCRIPT_FILENAME']);
+// 		}
 		
-		return $source_page;
-	}
+// 		return $source_page;
+// 	}
 	
 	// +---------------------------------------------------------------+
 	// | Debugging functions used for testing						  |

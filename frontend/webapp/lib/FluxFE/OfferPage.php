@@ -102,7 +102,7 @@ class OfferPage extends \Flux\OfferPage {
 	 * @see \Mojavi\Form\MongoForm::insert()
 	 */
 	function insert() {
-		throw new Exception('OfferPage::insert is not supported on the frontend');
+		throw new \Exception('OfferPage::insert is not supported on the frontend');
 	}
 
 	/**
@@ -110,7 +110,7 @@ class OfferPage extends \Flux\OfferPage {
 	 * @see \Mojavi\Form\MongoForm::update()
 	 */
 	function update($criteria_array = array(), $update_array = array(), $options_array = array(), $use_set_notation = false) {
-		throw new Exception('OfferPage::update is not supported on the frontend');
+		throw new \Exception('OfferPage::update is not supported on the frontend');
 	}
 
 	/**
@@ -118,6 +118,6 @@ class OfferPage extends \Flux\OfferPage {
 	 * @see \Mojavi\Form\MongoForm::delete()
 	 */
 	function delete() {
-		throw new Exception('OfferPage::delete is not supported on the frontend');
+		throw new \Exception('OfferPage::delete is not supported on the frontend');
 	}
 }
