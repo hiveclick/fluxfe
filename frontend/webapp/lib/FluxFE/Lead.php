@@ -55,7 +55,7 @@ class Lead extends \Flux\Lead {
 				   self::$_lead->setId($_COOKIE[COOKIE_NAME]);
 				   self::$_lead->query();
 				   self::$_lead->setId(null);
-				   self::$_lead->setTracking(null);
+				   self::$_lead->setT(null);
 				   $found_lead = true;
 			    }
 			}
@@ -64,7 +64,7 @@ class Lead extends \Flux\Lead {
 			        self::$_lead->setId($_COOKIE[MO_COOKIE_NAME]);
 			        self::$_lead->query();
 			        self::$_lead->setId(null);
-			        self::$_lead->setTracking(null);
+			        self::$_lead->setT(null);
 			        $found_lead = true;
 			    }
 			}
@@ -121,7 +121,7 @@ class Lead extends \Flux\Lead {
 		} else if (session_id() != '' && defined('MO_COOKIE_NAME')) {
 		    $_SESSION[MO_COOKIE_NAME] = (string)self::getInstance()->getId();
 		} else {
-			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: [ " . $_SERVER['SERVER_NAME'] . " ] SESSION NOT SAVED BECAUSE session_id is blank or COOKIE_NAME is not defined");
+			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: [ " . self::getInstance()->getId() . " ] SESSION NOT SAVED BECAUSE session_id is blank or COOKIE_NAME is not defined");
 		}
 				
 		if (defined('COOKIE_NAME')) { // Paths use the COOKIE_NAME constant
