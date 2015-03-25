@@ -117,19 +117,19 @@ class Lead extends \Flux\Lead {
 		// Save to the session
 		if (session_id() != '' && defined('COOKIE_NAME')) {
 			//we could just save the class into the session, but for consistency let's just serialize the variables anyway			
-			$_SESSION[COOKIE_NAME] = (string)self::getInstance()->getId();
+			$_SESSION[COOKIE_NAME] = (string)$this->getId();
 		} else if (session_id() != '' && defined('MO_COOKIE_NAME')) {
-		    $_SESSION[MO_COOKIE_NAME] = (string)self::getInstance()->getId();
+		    $_SESSION[MO_COOKIE_NAME] = (string)$this->getId();
 		} else {
-			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: [ " . self::getInstance()->getId() . " ] SESSION NOT SAVED BECAUSE session_id is blank or COOKIE_NAME is not defined");
+			\Mojavi\Logging\LoggerManager::error(__METHOD__ . " :: [ " . $this->getId() . " ] SESSION NOT SAVED BECAUSE session_id is blank or COOKIE_NAME is not defined");
 		}
 				
 		if (defined('COOKIE_NAME')) { // Paths use the COOKIE_NAME constant
 			header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-			setcookie(COOKIE_NAME, (string)self::getInstance()->getId(), time()+60*60*24*300, '/');
+			setcookie(COOKIE_NAME, (string)$this->getId(), time()+60*60*24*300, '/');
 		} else if (defined('MO_COOKIE_NAME')) { // Frontend and redirects use the MO_COOKIE_NAME constant
 			header('P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"');
-			setcookie(MO_COOKIE_NAME, (string)self::getInstance()->getId(), time()+60*60*24*300, '/');
+			setcookie(MO_COOKIE_NAME, (string)$this->getId(), time()+60*60*24*300, '/');
 		}
 		return $this;
 	}
@@ -142,18 +142,18 @@ class Lead extends \Flux\Lead {
 		if (!\MongoId::isValid(self::getInstance()->getId())) {
 			// Setup a created event that will be saved on this lead
 			$created_event = \FluxFE\DataField::retrieveDataFieldFromKeyName(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME);
-			self::getInstance()->addEvent(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME, "1");
+			$this->addEvent(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME, "1");
 			
 			// First save the lead if we haven't yet
-			$insert_id = self::getInstance()->insert();
-			self::getInstance()->setId($insert_id);
+			$insert_id = $this->insert();
+			$this->setId($insert_id);
 		} else {
 		    // Update the lead 
-            self::getInstance()->update();
+            $this->update();
 		}
 
 		// Requery the lead after we have updated it
-		self::getInstance()->query();
+		$this->query();
 
 		return true;
 	}
@@ -279,23 +279,23 @@ class Lead extends \Flux\Lead {
 	 * @return string
 	 */
 	public function retrieveRedirectUrl($additional_params = array()) {
-		$redirect_url = self::$_lead->getTracking()->getCampaign()->getCampaign()->getRedirectUrl();
+		$redirect_url = $this->getTracking()->getCampaign()->getCampaign()->getRedirectUrl();
 		if (trim($redirect_url) == '') {
 			throw new \Exception('Redirect url is blank for _ck (' . $this->getCampaignId() . ')');
 		}
-		$lead_params = self::$_lead->toArray(false);
+		$lead_params = $this->toArray(false);
 		$formatted_redirect_url = preg_replace_callback('/\#(.*?)\#/', function($matches) use ($lead_params, $additional_params) {
 			//first, check to see if this is special case parameter
 			if ($matches[1] === \Flux\DataField::DATA_FIELD_ID_NAME) {
-				return self::$_lead->getId();
+				return $this->getId();
 			} else if ($matches[1] === \Flux\DataField::DATA_FIELD_REF_CAMPAIGN_ID) {
-				return self::$_lead->getTracking()->getCampaign()->getCampaign()->getId();
+				return $this->getTracking()->getCampaign()->getCampaign()->getId();
 			} else if ($matches[1] === \Flux\DataField::DATA_FIELD_REF_CLIENT_ID) {
-				return self::$_lead->getTracking()->getCampaign()->getCampaign()->getClientId();
+				return $this->getTracking()->getCampaign()->getCampaign()->getClientId();
 			} else if ($matches[1] === \Flux\DataField::DATA_FIELD_REF_OFFER_ID) {
-				return self::$_lead->getTracking()->getCampaign()->getCampaign()->getOfferId();
+				return $this->getTracking()->getCampaign()->getCampaign()->getOfferId();
 			} else if ($matches[1] === \Flux\DataField::DATA_FIELD_AGG_CKID) {
-				return self::$_lead->getTracking()->getCampaign()->getCampaign()->getCampaignKey() . '_' . self::$_lead->getId();
+				return $this->getTracking()->getCampaign()->getCampaign()->getCampaignKey() . '_' . $this->getId();
 			}
 	
 			// now check the data scope of lead
@@ -443,7 +443,7 @@ class Lead extends \Flux\Lead {
 	 */
 	function debugEventData() {
 	    $events = array();
-	    foreach (self::getInstance()->getE() as $lead_event) {
+	    foreach ($this->getE() as $lead_event) {
 	        $events[] = array('event' => $lead_event->getDataField()->getDataFieldName(), 'value' => $lead_event->getValue(), 'time' => $lead_event->getT()->toDateTime());
 	    }
 		return var_export($events, true);

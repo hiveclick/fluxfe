@@ -32,7 +32,7 @@ class RAction extends BasicAction
 	
 	    	// Get a new instance of the lead (or existing instance) and save it to the db
 	    	$lead = \FluxFE\Lead::getInstance();
-			$lead->save(true);
+			//$lead->save(true);
 	
 			// Get the redirect url, formatted with placeholders injected
 			$redirect_url = $lead->retrieveRedirectUrl();
