@@ -139,7 +139,7 @@ class Lead extends \Flux\Lead {
 	 * @return boolean
 	 */
 	private function persist() {
-		if (!\MongoId::isValid(self::getInstance()->getId())) {
+		if (!\MongoId::isValid($this->getId())) {
 			// Setup a created event that will be saved on this lead
 			$created_event = \FluxFE\DataField::retrieveDataFieldFromKeyName(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME);
 			$this->addEvent(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME, "1");
