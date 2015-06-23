@@ -57,6 +57,11 @@ class Lead extends \Flux\Lead {
 			if (self::$_lead->getTracking()->getCampaign()->getCampaignId() == '') {
 			    self::$_lead->getTracking()->setCampaign(self::findDefaultCampaign());
 			}
+			
+			// Find and save the user agent information
+			self::$_lead->getTracking()->setUap(\Flux\LeadTracking::getUserAgentInfo()->getData()->platform);
+			self::$_lead->getTracking()->setUab(\Flux\LeadTracking::getUserAgentInfo()->getData()->browser);
+			self::$_lead->getTracking()->setUav(\Flux\LeadTracking::getUserAgentInfo()->getData()->version);
 
 			// Save our populated lead to the session
 			self::$_lead->save();
