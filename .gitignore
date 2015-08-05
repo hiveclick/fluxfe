@@ -1,6 +1,8 @@
 /nbproject/*
 .dropbox
 .htaccess
+.buildpath
+.settings
 
 # mojavi config files
 frontend/webapp/config/databases.ini
