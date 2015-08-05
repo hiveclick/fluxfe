@@ -113,7 +113,6 @@ class Lead extends \Flux\Lead {
 			// Setup a created event that will be saved on this lead
 			$created_event = \FluxFE\DataField::retrieveDataFieldFromKeyName(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME);
 			$this->addEvent(\FluxFE\DataField::DATA_FIELD_EVENT_CREATED_NAME, "1");
-			
 			// First save the lead if we haven't yet
 			$insert_id = $this->insert();
 			$this->setId($insert_id);

@@ -14,7 +14,7 @@ class LeadTracking extends \Flux\LeadTracking {
 	function getOffer() {
 		if (is_null($this->_offer)) {
 			$this->_offer = new \FluxFE\Offer();
-			if ($this->getOfferId() == 0) {
+			if (!\MongoId::isValid($this->getOfferId())) {
 				$this->findDefaultCampaign();
 			}
 			$this->_offer->setId($this->getOfferId());
@@ -30,7 +30,7 @@ class LeadTracking extends \Flux\LeadTracking {
 	function getClient() {
 		if (is_null($this->_client)) {
 			$this->_client = new \FluxFE\Client();
-			if ($this->getClientId() == 0) {
+			if (\MongoId::isValid($this->getClientId())) {
 				$this->findDefaultCampaign();
 			}
 			$this->_client->setId($this->getClientId());
@@ -48,7 +48,7 @@ class LeadTracking extends \Flux\LeadTracking {
 			if ($this->getCampaignId() == '') {
 				$this->findDefaultCampaign();
 			}
-			if ($this->getCampaignId() > 0) {
+			if (\MongoId::isValid($this->getCampaignId())) {
 				$this->_campaign = new \FluxFE\Campaign();
 				$this->_campaign->setId($this->getCampaignId());
 				$this->_campaign->query();
