@@ -369,7 +369,7 @@ class Lead extends \Flux\Lead {
 	function debugEventData() {
 	    $events = array();
 	    foreach ($this->getE() as $lead_event) {
-	        $events[] = array('event' => $lead_event->getDataField()->getDataFieldName(), 'value' => $lead_event->getValue(), 'time' => $lead_event->getT()->toDateTime());
+	        $events[] = array('event' => $lead_event->getDataField()->getName(), 'value' => $lead_event->getValue(), 'time' => $lead_event->getT()->toDateTime());
 	    }
 		return var_export($events, true);
 	}
@@ -385,9 +385,9 @@ class Lead extends \Flux\Lead {
 		$output[] = '<legend>Debugging Information</legend>';
 		$output[] = '<b>Offer Key:</b> ' . (defined('OFFER_KEY') ? OFFER_KEY : '<i>not set</i>') . '<br />';
 		$output[] = '<b>Document Root:</b> ' . (isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '<i>not set</i>') . '<br />';
-		$output[] = '<b>Campaign:</b> ' . (self::getInstance()->getTracking()->getCampaign()->getCampaignId()) . '<br />';
-		$output[] = '<b>Offer:</b> ' . (self::getInstance()->getTracking()->getOffer()->getOfferName()) . ' (' . self::getInstance()->getTracking()->getOffer()->getOfferId() . ')' . '<br />';
-		$output[] = '<b>Client:</b> ' . (self::getInstance()->getTracking()->getClient()->getClientName()) . ' (' . self::getInstance()->getTracking()->getClient()->getClientId() . ')' . '<br />';
+		$output[] = '<b>Campaign:</b> ' . (self::getInstance()->getTracking()->getCampaign()->getId()) . '<br />';
+		$output[] = '<b>Offer:</b> ' . (self::getInstance()->getTracking()->getOffer()->getName()) . ' (' . self::getInstance()->getTracking()->getOffer()->getId() . ')' . '<br />';
+		$output[] = '<b>Client:</b> ' . (self::getInstance()->getTracking()->getClient()->getName()) . ' (' . self::getInstance()->getTracking()->getClient()->getId() . ')' . '<br />';
 		$output[] = '<b>Lead:</b> ' . (self::getInstance()->getId()) . '<p />';
 		$output[] = '<p />';
 		$output[] = '<b>Data:</b> ' . self::getInstance()->debugData() . '<br />';

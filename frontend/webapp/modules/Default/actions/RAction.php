@@ -38,7 +38,7 @@ class RAction extends BasicAction
 			$redirect_url = $lead->retrieveRedirectUrl();
 	
 			if (trim($redirect_url) == '') {
-				throw new \Exception("No redirect associated with " . $lead->getOfferId() . " and " . $lead->getClientId() . ' from ' . $lead->getCampaignId() . ' (' . $lead->getCampaign()->getOfferId() . '/' . $lead->getCampaign()->getClientId() . ')');	
+				throw new \Exception("No redirect associated with " . $lead->getTracking()->getOffer()->getId() . " and " . $lead->getTracking()->getClient()->getId() . ' from ' . $lead->getTracking()->getCampaign()->getId() . ' (' . $lead->getTracking()->getCampaign()->getOffer()->getId() . '/' . $lead->getTracking()->getCampaign()->getClient()->getId() . ')');	
 			}
 			
 			// Redirect to the formatted url
