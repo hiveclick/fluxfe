@@ -1,7 +1,7 @@
 <?php
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'DefaultIndexView.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'IndexBlankView.php');
 
-class RSuccessView extends DefaultIndexView
+class PSuccessView extends IndexBlankView
 {
 
     // +-----------------------------------------------------------------------+

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'DefaultIndexView.class.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'DefaultIndexView.php');
 
 class JSuccessView extends DefaultIndexView
 {
