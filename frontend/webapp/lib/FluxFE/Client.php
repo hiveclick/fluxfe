@@ -45,7 +45,7 @@ class Client extends \Flux\Client {
 	 * Queries for an offer
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
-	function queryAll(array $criteria = array(), $hydrate = true) {
+	function queryAll(array $criteria = array(), $hydrate = true, $fields = array()) {
 		throw new \Exception('Client::queryAll is not supported on the frontend');
 	}
 

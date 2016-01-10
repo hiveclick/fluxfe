@@ -60,7 +60,7 @@ class Campaign extends \Flux\Campaign {
 	 * Queries for an offer
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
-	function queryAll(array $criteria = array(), $hydrate = true) {
+	function queryAll(array $criteria = array(), $hydrate = true, $fields = array()) {
 		throw new \Exception('Campaign::queryAll is not supported on the frontend');
 	}
 

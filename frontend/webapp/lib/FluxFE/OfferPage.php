@@ -78,7 +78,7 @@ class OfferPage extends \Flux\OfferPage {
 	 * Queries for an offer_page
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
-	function queryAll(array $criteria = array(), $hydrate = true) {
+	function queryAll(array $criteria = array(), $hydrate = true, $fields = array()) {
 		$ret_val = array();
 		if (defined('FLOW_CACHE_DIR')) {
 			$response = \Mojavi\Util\Ajax::sendAjaxAndCache(FLOW_CACHE_DIR . '/offer_' . $this->getOffer()->getOfferId() . '_pages.json', '/offer/offer-page', array('offer_id' => $this->getOffer()->getOfferId(), 'sort' => 'priority', 'sord' => 'ASC'));

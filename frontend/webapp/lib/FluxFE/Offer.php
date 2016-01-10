@@ -70,7 +70,7 @@ class Offer extends \Flux\Offer {
 	 * Queries for an offer
 	 * @see \Mojavi\Form\MongoForm::query()
 	 */
-	function queryAll(array $criteria = array(), $hydrate = true) {
+	function queryAll(array $criteria = array(), $hydrate = true, $fields = array()) {
 		throw new \Exception('Offer::queryAll is not supported on the frontend');
 	}
 

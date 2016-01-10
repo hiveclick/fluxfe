@@ -52,7 +52,7 @@ class DataField extends \Flux\DataField {
 	 * Queries a report column by it's name
 	 * @return Flux\DataField
 	 */
-	function queryAll(array $criteria = array(), $hydrate = true) {
+	function queryAll(array $criteria = array(), $hydrate = true, $fields = array()) {
 		$params = array('ignore_pagination' => 1);
 		$url = '/admin/datafield';
 		$ret_val = array();
